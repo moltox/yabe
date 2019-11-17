@@ -68,7 +68,7 @@
 
                             </div>
 
-                            <p>TODO: Put custom fields here</p>
+                            @include('yabe::users.partials.edit.content_customfields')
 
                             <div class="field is-grouped">
                                 <div class="control">

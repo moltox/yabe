@@ -8,7 +8,7 @@ trait CustomField {
 
     public function field( $fieldname ) {
 
-        return $this->customFields()->getQuery()->where('name', $fieldname)->get();
+        return $this->customFields()->getQuery()->where('name', $fieldname)->get()->first();
 
     }
 
