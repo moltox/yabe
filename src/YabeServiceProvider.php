@@ -36,6 +36,7 @@ class YabeServiceProvider extends ServiceProvider {
 
         $this->loadTranslationsFrom(__DIR__ . '/lang', 'yabe');
 
+        $this->loadMigrationsFrom(__DIR__ . '/migrations');
 
     }
 

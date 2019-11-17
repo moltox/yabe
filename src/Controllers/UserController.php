@@ -5,6 +5,7 @@ namespace moltox\yabe\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use moltox\yabe\Repositories\UsersRepository;
+use App\User;
 
 
 class UserController extends Controller {
