@@ -13,7 +13,7 @@ class YabeServiceProvider extends ServiceProvider {
      */
     public function register() {
 
-        $this->app->make('moltox\yabe\YabeController');
+        $this->app->make('moltox\yabe\Controllers\YabeController');
         $this->loadViewsFrom( __DIR__ . '/views', 'yabe');
 
     }

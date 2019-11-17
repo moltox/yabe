@@ -1,3 +1,3 @@
 <?php
 
-Route::resource('/yabe', 'moltox\yabe\YabeController');
+Route::get('/yabe', 'moltox\yabe\Controllers\YabeController@index');
