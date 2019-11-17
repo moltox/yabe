@@ -4,8 +4,18 @@ namespace moltox\yabe\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use moltox\yabe\Repositories\UsersRepository;
+
 
 class UserController extends Controller {
+
+    protected $usersRepository;
+
+    public function __construct( UsersRepository $usersRepository ) {
+
+        $this->usersRepository = $usersRepository;
+
+    }
 
     /**
      * Display a listing of the resource.
@@ -14,7 +24,11 @@ class UserController extends Controller {
      */
     public function index() {
 
-        return view( 'yabe::users.index' );
+        $users = $this->usersRepository->index();
+
+        $users = $users->get();
+
+        return view( 'yabe::users.index', compact('users') );
     }
 
     /**
@@ -45,7 +59,11 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show( $id ) {
-        //
+
+        $user = $this->usersRepository->show( $id );
+
+        return view( 'yabe::users.show', compact('user') );
+
     }
 
     /**
@@ -56,7 +74,11 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit( $id ) {
-        //
+
+        $user = $this->usersRepository->show( $id );
+
+        return view( 'yabe::users.edit', compact('user') );
+
     }
 
     /**
@@ -68,7 +90,11 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update( Request $request, $id ) {
-        //
+
+        $user = $this->usersRepository->update( $id, $request );
+
+        return redirect(route('y_users.show', ['user' => $user]));
+
     }
 
     /**
@@ -79,7 +105,11 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy( $id ) {
-        //
+
+        $this->usersRepository->destroy( $id );
+
+        return redirect(route('y_users.index'));
+
     }
 
 }

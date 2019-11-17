@@ -8,9 +8,9 @@
             &nbsp;
         </div>
 
-        <div class="column is-four-fifths">
+        <div class="column is-three-fifths">
 
-            @include('yabe::users.partials.index.table')
+            @include('yabe::users.partials.edit.content')
 
         </div>
 
