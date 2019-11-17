@@ -1,0 +1,15 @@
+{
+    "name": "moltox/yabe",
+    "description": "YetAnotherBackend -> User and Permission Backend",
+    "type": "project",
+    "require": {
+        "spatie/laravel-permission": "^3.2",
+        "spatie/eloquent-sortable": "^3.7"
+    },
+    "authors": [
+        {
+            "name": "Maik Mueller",
+            "email": "mueller.maik1@gmail.com"
+        }
+    ]
+}
