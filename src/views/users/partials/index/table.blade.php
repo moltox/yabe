@@ -2,14 +2,17 @@
 
     <thead>
 
-        @include('yabe::users.partials.index.table_head')
+    @include('yabe::users.partials.index.table_head')
 
     </thead>
 
     <tbody>
 
-        @include('yabe::users.partials.index.table_body')
+    @include('yabe::users.partials.index.table_body')
 
     </tbody>
 
+
+
 </table>
+{{ $users->links('yabe::components.pagination') }}

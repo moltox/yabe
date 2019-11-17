@@ -26,9 +26,9 @@ class UserController extends Controller {
 
         $users = $this->usersRepository->index();
 
-        $users = $users->get();
+        $users = $users->paginate( 10 );
 
-        return view( 'yabe::users.index', compact('users') );
+        return view( 'yabe::users.index', compact( 'users' ) );
     }
 
     /**
@@ -62,7 +62,7 @@ class UserController extends Controller {
 
         $user = $this->usersRepository->show( $id );
 
-        return view( 'yabe::users.show', compact('user') );
+        return view( 'yabe::users.show', compact( 'user' ) );
 
     }
 
@@ -77,7 +77,7 @@ class UserController extends Controller {
 
         $user = $this->usersRepository->show( $id );
 
-        return view( 'yabe::users.edit', compact('user') );
+        return view( 'yabe::users.edit', compact( 'user' ) );
 
     }
 
@@ -93,7 +93,7 @@ class UserController extends Controller {
 
         $user = $this->usersRepository->update( $id, $request );
 
-        return redirect(route('y_users.show', ['user' => $user]));
+        return redirect( route( 'y_users.show', [ 'user' => $user ] ) );
 
     }
 
@@ -108,7 +108,7 @@ class UserController extends Controller {
 
         $this->usersRepository->destroy( $id );
 
-        return redirect(route('y_users.index'));
+        return redirect( route( 'y_users.index' ) );
 
     }
 
