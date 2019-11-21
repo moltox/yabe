@@ -7,7 +7,6 @@
     </header>
 
 
-
     <div class="card-content">
 
         <div class="media">

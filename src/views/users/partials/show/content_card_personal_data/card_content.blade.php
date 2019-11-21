@@ -8,7 +8,7 @@
 
 <div class="content">
 
-    <p>TODO: Put custom fields here</p>
+   @include('yabe::users.partials.show.content_customfields')
 
 </div>
 

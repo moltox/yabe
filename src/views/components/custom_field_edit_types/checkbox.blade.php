@@ -6,7 +6,7 @@
 
             <input name="__cf__{{ $cfg['name'] }}"
                    class="@if($errors->has('name')) is-danger @else is-primary @endif"
-                   type="checkbox" @if($field->value == 'on' || $field->value == '1') checked="checked" @endif
+                   type="checkbox" @if( isset($field->value) && ( $field->value == 'on' || $field->value == '1') ) checked="checked" @endif
                    value="1">
 
         </label>

@@ -63,7 +63,9 @@ class UserController extends Controller {
 
         $user = $this->usersRepository->show( $id );
 
-        return view( 'yabe::users.show', compact( 'user' ) );
+        $customFields = config('custom_fields.User');
+
+        return view( 'yabe::users.show', compact( 'user', 'customFields' ) );
 
     }
 
