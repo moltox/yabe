@@ -4,12 +4,23 @@
     "type": "project",
     "require": {
         "spatie/laravel-permission": "^3.2",
-        "spatie/eloquent-sortable": "^3.7"
+        "spatie/eloquent-sortable": "^3.7",
+        "davejamesmiller/laravel-breadcrumbs": "5.x"
     },
     "authors": [
         {
             "name": "Maik Mueller",
             "email": "mueller.maik1@gmail.com"
         }
-    ]
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "davejamesmiller\\Breadcrumbs\\BreadcrumbsServiceProvicer"
+            ],
+            "aliases": {
+                "Breadcrumbs": "DaveJamesMiller\\Breadcrumbs\\Facades\\Breadcrumbs"
+            }
+        }
+    }
 }

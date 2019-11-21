@@ -1,5 +1,7 @@
 <?php
 
+/*
+
 // Yabe Home
 Breadcrumbs::for('yabe', function ($trail) {
 
@@ -37,3 +39,4 @@ Breadcrumbs::for('y_users.edit', function ($trail, $user)  {
     $trail->push('Edit', route('y_users.edit', ['user'=>$mUser]));
 
 });
+*/
