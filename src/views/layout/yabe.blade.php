@@ -9,7 +9,11 @@
 
 @include('yabe::navbar_top.navbar')
 
+<section class="section">
 
+    {{ Breadcrumbs::render() }}
+
+</section>
 <section class="section">
 
     @yield('content')

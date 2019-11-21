@@ -26,7 +26,9 @@ class YabeServiceProvider extends ServiceProvider {
      */
     public function boot() {
 
-        include __DIR__ . '/routes.php';
+        include __DIR__ . '/routes/routes.php';
+
+        include __DIR__ . '/routes/breadcrumbs.php';
 
         $this->publishes([
 
