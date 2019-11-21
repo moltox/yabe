@@ -29,7 +29,9 @@ class UserController extends Controller {
 
         $users = $users->paginate( 10 );
 
-        return view( 'yabe::users.index', compact( 'users' ) );
+        $customFields = config('custom_fields.User');
+
+        return view( 'yabe::users.index', compact( 'users', 'customFields' ) );
     }
 
     /**
