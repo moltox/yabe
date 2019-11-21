@@ -4,7 +4,7 @@
 
         <input name="__cf__{{ $cfg['name'] }}"
                class="input @if($errors->has('name')) is-danger @else is-primary @endif"
-               type="text"
+               type="{{ $cfg['content_type'] }}"
                placeholder="{{ __($cfg['placeholder']) }}"
 
                @if(isset( $field->value ))

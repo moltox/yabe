@@ -187,6 +187,7 @@ class AbstractRepository {
 
                 case 'text':
                 case 'bulma_dropdown':
+                case 'radio':
 
                     if ( $request->has( $leadingCfFieldPattern . $fieldName ) && $request[ $leadingCfFieldPattern . $fieldName] != null ) {
 
