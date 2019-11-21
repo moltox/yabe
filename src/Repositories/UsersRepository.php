@@ -3,23 +3,17 @@
 namespace moltox\yabe\Repositories;
 
 
-use Illuminate\Http\Request;
-
-use moltox\yabe\Repositories\CustomFieldRepository;
-
-class UsersRepository {
+class UsersRepository extends AbstractRepository {
 
     protected $user;
 
-    protected $customFieldRepository;
+    public function __construct() {
 
-    public function __construct( CustomFieldRepository $customFieldRepository ) {
+        $userClass = config( 'yabe.user_model_path' );
+// TODO manage this by middleware or something like this
+        $this->user = new $userClass;
 
-        $class = config( 'yabe.user_model_path' );
-
-        $this->user = new $class;
-
-        $this->customFieldRepository = $customFieldRepository;
+        parent::__construct( $this->user );
 
     }
 
@@ -35,55 +29,7 @@ class UsersRepository {
 
     }
 
-    public function destroy( $id ) {
-
-        $user = $this->user->find( $id );
-
-        return $user->delete();
-
-    }
-
-    public function update( $id, $request ) {
 
 
-
-        // TODO add password check
-        $user = $this->user->find( $id );
-
-        $user->update( $request->all() );
-
-        $parsedCustomFields = $this->getParsedCustomFieldsFromRequest( $request );
-
-        $cfr = $this->customFieldRepository;
-
-        $user = $cfr->update( $user, $parsedCustomFields );
-
-        $user->save();
-
-        return $user;
-
-    }
-
-    private function getParsedCustomFieldsFromRequest( $request ) {
-
-        $data = $request->all();
-
-        $parsedData = [];
-
-        foreach ($data as $idx => $value)  {
-
-            if ( strpos( $idx, 'cf_'))  {
-
-                $fieldName = explode('cf__', $idx)[1];
-
-                $parsedData[$fieldName] = $value;
-
-            }
-
-        }
-
-        return $parsedData;
-
-    }
 
 }

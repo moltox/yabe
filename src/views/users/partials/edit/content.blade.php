@@ -16,6 +16,8 @@
 
                         <div class="column">
 
+                            @include('yabe::components.custom_field_edit_types.checkbox', ['cfg' => $customFields['active'], 'field' => $user->field( 'active' ) ] )
+
                             <div class="field">
 
                                 <div class="control has-icons-left">

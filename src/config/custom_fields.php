@@ -2,6 +2,10 @@
 
 return [
 
+    'config' => [
+        'leading_cf_field_pattern' => '__cf__'
+    ],
+
     'User' => [
 
         'street' => [
