@@ -8,7 +8,7 @@
 
     <div class="column">
 
-        &nbsp;
+        @include('yabe::users.partials.show.roles')
 
     </div>
 
