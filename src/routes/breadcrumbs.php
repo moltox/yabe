@@ -10,7 +10,7 @@ Breadcrumbs::for('yabe', function ($trail) {
 Breadcrumbs::for('y_users.index', function ($trail)  {
 
     $trail->parent('yabe');
-    $trail->push('Users', route('y_users.index'));
+    $trail->push(Str::plural( __('words.User') ), route('y_users.index'));
 
 });
 
@@ -34,7 +34,14 @@ Breadcrumbs::for('y_users.edit', function ($trail, $user)  {
     $mUser = $mUser->findOrFail($user);
 
     $trail->parent('y_users.show', $user);
-    $trail->push('Edit', route('y_users.edit', ['user'=>$mUser]));
+    $trail->push(Str::title( __('yabe::words.edit') ), route('y_users.edit', ['user'=>$mUser]));
 
 });
 
+
+Breadcrumbs::for('y_permissions.index', function ($trail)  {
+
+    $trail->parent('yabe');
+    $trail->push(Str::plural( __('yabe::words.Permission')), route('y_permissions.index'));
+
+});

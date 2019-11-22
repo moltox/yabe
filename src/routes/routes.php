@@ -13,7 +13,7 @@ Route::group( [ 'middleware' => [ 'web', 'auth' ],
 
     Route::get( '/user/{user}/removerole/{role}', 'moltox\yabe\Http\Controllers\UserController@removeRole' )->name( 'removeRoleFromUser' );
 
-    Route::patch('/user/{user}/changepassword', 'moltox\yabe\Http\Controllers\UserController@changePassword')->name('changePasswordForUser');
+    Route::patch( '/user/{user}/changepassword', 'moltox\yabe\Http\Controllers\UserController@changePassword' )->name( 'changePasswordForUser' );
 
     Route::resource( '/users', 'moltox\yabe\Http\Controllers\UserController' )->names( [
         'index' => 'y_users.index',
@@ -24,7 +24,28 @@ Route::group( [ 'middleware' => [ 'web', 'auth' ],
         'destroy' => 'y_users.destroy',
         'edit' => 'y_users.edit'
     ] );
+    /*
+        Route::resource( '/roles', 'moltox\yabe\Http\Controllers\RoleController' )->names( [
+            'index' => 'y_roles.index',
+            'store' => 'y_roles.store',
+            'create' => 'y_roles.create',
+            'show' => 'y_roles.show',
+            'update' => 'y_roles.update',
+            'destroy' => 'y_roles.destroy',
+            'edit' => 'y_roles.edit'
+        ] );
 
+    */
+
+    Route::resource( '/permissions', 'moltox\yabe\Http\Controllers\PermissionController' )->names( [
+        'index' => 'y_permissions.index',
+        'store' => 'y_permissions.store',
+        'create' => 'y_permissions.create',
+        'show' => 'y_permissions.show',
+        'update' => 'y_permissions.update',
+        'destroy' => 'y_permissions.destroy',
+        'edit' => 'y_permissions.edit'
+    ] )->except(['create', 'show']);
 
 
 } );

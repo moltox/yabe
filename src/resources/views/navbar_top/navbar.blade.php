@@ -16,10 +16,27 @@
                 {{ __('yabe::words.Home') }}
             </a>
 
-            <a class="navbar-item" href="{{ route('y_users.index') }}">
-                {{ __('yabe::words.User') }}
-            </a>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    {{ __('yabe::words.User') }}
+                </a>
 
+                <div class="navbar-dropdown">
+
+                    <a class="navbar-item" href="{{ route('y_users.index') }}">
+                        {{ Str::plural( __('yabe::words.User') ) }}
+                    </a>
+
+                    {{--<a class="navbar-item" href="{{ route('y_roles.index') }}">
+                        {{ Str::plural( __('yabe::words.Role') ) }}
+                    </a>
+--}}
+                    <a class="navbar-item" href="{{ route('y_permissions.index') }}">
+                        {{ Str::plural( __('yabe::words.Permission') ) }}
+                    </a>
+
+                </div>
+            </div>
         </div>
 
         <div class="navbar-end">

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use moltox\yabe\Helper\CustomFieldHelper;
 use moltox\yabe\Repositories\UsersRepository;
-
+use Spatie\Permission\Models\Permission;
 
 
 class PermissionController extends Controller {
@@ -26,15 +26,11 @@ class PermissionController extends Controller {
 
     protected $userClass;
 
-    public function __construct( UsersRepository $usersRepository, CustomFieldHelper $customFieldHelper ) {
-
-        parent::__construct( $customFieldHelper );
-
-        $this->customFieldHelper = $customFieldHelper;
+    public function __construct( UsersRepository $usersRepository ) {
 
         $this->usersRepository = $usersRepository;
 
-        $class =  config('yabe.user_model_path');
+        $class = config( 'yabe.user_model_path' );
 
         $this->userClass = $class;
 
@@ -49,19 +45,10 @@ class PermissionController extends Controller {
      */
     public function index() {
 
+        $permissions = Permission::select( '*' )->orderBy( 'name', 'asc' )->paginate( 10 );
 
+        return view( 'yabe::permissions.index', compact( 'permissions' ) );
 
-
-
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create() {
-        //
     }
 
     /**
@@ -72,19 +59,17 @@ class PermissionController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store( Request $request ) {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show( $id ) {
+        $validated = $this->validate( $request, [
 
+            'name' => 'required|min:8|max:25',
+            'guard_name' => 'min:2|max:12',
 
+        ] );
+
+        Permission::create( $validated );
+
+        return redirect( route( 'y_permissions.index' ) );
 
     }
 
@@ -96,6 +81,12 @@ class PermissionController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit( $id ) {
+
+        $permission = Permission::find( $id );
+
+        $permissions = Permission::select( '*' )->orderBy( 'name', 'asc' )->paginate( 10 );
+
+        return view( 'yabe::permissions.index', compact( 'permission', 'permissions' ) );
 
     }
 
@@ -110,7 +101,6 @@ class PermissionController extends Controller {
     public function update( Request $request, $id ) {
 
 
-
     }
 
     /**
@@ -121,7 +111,6 @@ class PermissionController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy( $id ) {
-
 
 
     }
