@@ -14,6 +14,10 @@
 
     @endif
 
-    <label><small>{{ __( $cfg['caption'] ) }}</small></label>
+    @if( !isset($cfg['hideLabelInShowView']) || $cfg['hideLabelInShowView'] != true )
+
+        <label><small>{{ __( $cfg['caption'] ) }}</small></label>
+
+    @endif
 
 </div>

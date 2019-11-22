@@ -1,6 +1,5 @@
 <?php
 
-
 // Yabe Home
 Breadcrumbs::for('yabe', function ($trail) {
 

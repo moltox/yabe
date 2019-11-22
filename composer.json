@@ -1,26 +1,21 @@
 {
     "name": "moltox/yabe",
+    "license": "MIT",
     "description": "YetAnotherBackend -> User and Permission Backend",
-    "type": "project",
-    "require": {
-        "spatie/laravel-permission": "^3.2",
-        "spatie/eloquent-sortable": "^3.7",
-        "davejamesmiller/laravel-breadcrumbs": "5.x"
-    },
     "authors": [
         {
             "name": "Maik Mueller",
             "email": "mueller.maik1@gmail.com"
         }
     ],
-    "extra": {
-        "laravel": {
-            "providers": [
-                "davejamesmiller\\Breadcrumbs\\BreadcrumbsServiceProvider"
-            ],
-            "aliases": {
-                "Breadcrumbs": "DaveJamesMiller\\Breadcrumbs\\Facades\\Breadcrumbs"
-            }
+    "require": {
+        "spatie/laravel-permission": "^3.2",
+        "spatie/eloquent-sortable": "^3.7",
+        "davejamesmiller/laravel-breadcrumbs": "5.x"
+    },
+    "autoload": {
+        "psr-4": {
+            "moltox\\yabe\\": "src/"
         }
     }
 }

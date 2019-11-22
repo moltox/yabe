@@ -16,8 +16,8 @@ class YabeServiceProvider extends ServiceProvider {
      */
     public function register() {
 
-        $this->app->make('moltox\yabe\Controllers\YabeController');
-        $this->loadViewsFrom( __DIR__ . '/../views', 'yabe');
+        $this->app->make('moltox\yabe\Http\Controllers\YabeController');
+        $this->loadViewsFrom( __DIR__ . '/resources/views', 'yabe');
 
     }
 
@@ -32,16 +32,18 @@ class YabeServiceProvider extends ServiceProvider {
 
         $this->publishes([ __DIR__ . '/config/breadcrumbs.php' => config_path('breadcrumbs.php') ], 'breadcrumbs-config');
 
-        $this->loadTranslationsFrom(__DIR__ . '/lang', 'yabe');
+        $this->publishes([ __DIR__ . '/config/custom_fields.php' => config_path('custom_fields.php') ], 'customfields-config');
 
-        $this->loadMigrationsFrom(__DIR__ . '/migrations');
+        $this->publishes([ __DIR__ . '/resources/lang' => resource_path('lang'), ], 'example-lang' );
+
+        $this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'yabe');
+
+        $this->loadMigrationsFrom(__DIR__ . '/Database/migrations');
 
         include __DIR__ . '/routes/routes.php';
 
         include __DIR__ . '/routes/breadcrumbs.php';
 
     }
-
-
 
 }

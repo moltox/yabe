@@ -1,6 +1,6 @@
 <?php
 
-namespace moltox\yabe\Controllers;
+namespace moltox\yabe\Http\Controllers;
 
 class YabeController extends AbstractController
 {

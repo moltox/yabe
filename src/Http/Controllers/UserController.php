@@ -1,8 +1,8 @@
 <?php
 
-namespace moltox\yabe\Controllers;
+namespace moltox\yabe\Http\Controllers;
 
-use Cassandra\Custom;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use moltox\yabe\Helper\CustomFieldHelper;
