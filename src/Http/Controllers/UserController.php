@@ -10,7 +10,7 @@ use moltox\yabe\Repositories\UsersRepository;
 
 
 
-class UserController extends Controller {
+class UserController extends AbstractController {
 
     /**
      * @var UsersRepository $usersRepository
