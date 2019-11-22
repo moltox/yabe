@@ -1,0 +1,56 @@
+.mNavbar {
+
+    padding-bottom: 20px;
+
+    margin-bottom: 0px;
+
+}
+
+.breadcrumb  {
+
+    padding: 5px;
+
+}
+
+.columns {
+
+    width: 100%;
+
+}
+
+.mBreadcrumb  {
+
+
+
+}
+
+.mBox  {
+
+    width: 100%;
+
+    border: 1px solid;
+
+    padding: 5px;
+
+    margin: 5px;
+
+}
+
+.mBox a {
+
+    color: white;
+
+}
+
+
+input[type="checkbox"], .tab-pane { display: none; }
+
+/* the magic */
+#pic:checked ~ .tab-content > .content-pic,
+#music:checked ~ .tab-content > .content-music,
+#video:checked ~ .tab-content > .content-video,
+#doc:checked ~ .tab-content > .content-doc {
+    display: block;
+}
+
+

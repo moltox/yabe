@@ -36,6 +36,8 @@ class YabeServiceProvider extends ServiceProvider {
 
         $this->publishes([ __DIR__ . '/resources/lang' => resource_path('lang'), ], 'example-lang' );
 
+        $this->publishes([ __DIR__ . '/public' => public_path('moltox/yabe') ], 'public-files' );
+
         $this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'yabe');
 
         $this->loadMigrationsFrom(__DIR__ . '/Database/migrations');

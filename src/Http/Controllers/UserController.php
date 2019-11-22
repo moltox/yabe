@@ -24,6 +24,8 @@ class UserController extends Controller {
 
     protected $user;
 
+    protected $userClass;
+
     public function __construct( UsersRepository $usersRepository, CustomFieldHelper $customFieldHelper ) {
 
         $this->customFieldHelper = $customFieldHelper;
@@ -31,6 +33,8 @@ class UserController extends Controller {
         $this->usersRepository = $usersRepository;
 
         $class =  config('yabe.user_model_path');
+
+        $this->userClass = $class;
 
         $this->user = new $class;
 
@@ -147,6 +151,49 @@ class UserController extends Controller {
         $this->usersRepository->destroy( $id );
 
         return redirect( route( 'y_users.index' ) );
+
+    }
+
+    public function addDirectPermission( $user, $permission ) {
+
+        $this->usersRepository->givePermission( $user, $permission );
+
+        return redirect(route('y_users.edit', ['user' => $user]));
+
+    }
+
+    public function removeDirectPermission( $user, $permission ) {
+
+        $this->usersRepository->removePermission( $user, $permission );
+
+        return redirect(route('y_users.edit', ['user' => $user]));
+
+    }
+
+    public function addRole( $user, $role ) {
+
+        $this->usersRepository->giveRole( $user, $role );
+
+        return redirect(route('y_users.edit', ['user' => $user]));
+
+    }
+
+    public function removeRole( $user, $role ) {
+
+        $this->usersRepository->removeRole( $user, $role );
+
+        return redirect(route('y_users.edit', ['user' => $user]));
+
+    }
+
+    public function changePassword( Request $request,  $user ) {
+
+        $validated = $this->validate( $request, [
+            'password' => 'confirmed|min:6|max:255',
+
+        ]);
+
+        return redirect(route('y_users.edit', ['user' => $user]));
 
     }
 

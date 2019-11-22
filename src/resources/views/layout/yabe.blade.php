@@ -9,12 +9,14 @@
 
 @include('yabe::navbar_top.navbar')
 
-<section class="section">
+<section class="section" style="margin: 0; padding: 0">
 
-    {{ Breadcrumbs::render() }}
+    <div class="mBreadcrumb has-background-grey-lighter">
+        {{ Breadcrumbs::render() }}
+    </div>
 
 </section>
-<section class="section">
+<section class="section has-background-grey-lighter">
 
     @yield('content')
 

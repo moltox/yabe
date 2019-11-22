@@ -19,7 +19,7 @@ class UsersRepository extends AbstractRepository {
 
     public function index() {
 
-        return $this->user->select('*');
+        return $this->user->select( '*' );
 
     }
 
@@ -29,7 +29,29 @@ class UsersRepository extends AbstractRepository {
 
     }
 
+    public function givePermission( $userId, $permission ) {
 
+        $this->user->find( $userId )->givePermissionTo( $permission );
+
+    }
+
+    public function removePermission( $userId, $permission ) {
+
+        $this->user->find( $userId )->revokePermissionTo( $permission );
+
+    }
+
+    public function giveRole( $userId, $role ) {
+
+        $this->user->find( $userId )->assignRole( $role );
+
+    }
+
+    public function removeRole( $userId, $role ) {
+
+        $this->user->find( $userId )->removeRole( $role );
+
+    }
 
 
 }

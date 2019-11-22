@@ -1,4 +1,4 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
+<nav class="navbar mNavbar is-primary" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
 
         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
@@ -57,7 +57,11 @@
 
 
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
 </nav>
