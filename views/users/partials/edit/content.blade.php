@@ -32,9 +32,9 @@
 
                                 <label class="label"><small>{{ __('yabe::words.Name') }}</small></label>
 
-                                @if( $errors->has('email'))
+                                @if( $errors->has('name'))
 
-                                    @foreach($errors->get('email') as $msg)
+                                    @foreach($errors->get('name') as $msg)
 
                                         <p class="help is-danger">{{ $msg }}</p>
 
@@ -74,10 +74,10 @@
 
                             <div class="field is-grouped">
                                 <div class="control">
-                                    <button class="button is-link">Submit</button>
+                                    <button class="button is-link">{{ __('yabe::words.Save') }}</button>
                                 </div>
                                 <div class="control">
-                                    <button class="button is-link is-light">Cancel</button>
+                                    <button class="button is-link is-light">{{ __('yabe::words.Cancel') }}</button>
                                 </div>
                             </div>
 

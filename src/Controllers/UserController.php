@@ -2,19 +2,37 @@
 
 namespace moltox\yabe\Controllers;
 
+use Cassandra\Custom;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use moltox\yabe\Helper\CustomFieldHelper;
 use moltox\yabe\Repositories\UsersRepository;
-use App\User;
+
 
 
 class UserController extends Controller {
 
+    /**
+     * @var UsersRepository $usersRepository
+     */
     protected $usersRepository;
 
-    public function __construct( UsersRepository $usersRepository ) {
+    /**
+     * @var CustomFieldHelper $customFieldHelper
+     */
+    protected $customFieldHelper;
+
+    protected $user;
+
+    public function __construct( UsersRepository $usersRepository, CustomFieldHelper $customFieldHelper ) {
+
+        $this->customFieldHelper = $customFieldHelper;
 
         $this->usersRepository = $usersRepository;
+
+        $class =  config('yabe.user_model_path');
+
+        $this->user = new $class;
 
     }
 
@@ -97,6 +115,19 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update( Request $request, $id ) {
+
+        $cfh = $this->customFieldHelper;
+
+        $rules = array(
+
+            'name' => 'required|min:3|max:255',
+            'email' => 'required|email',
+
+        );
+
+        $rules = $cfh->getModelsValidationRules( $this->user, $rules );
+
+        $this->validate( $request, $rules );
 
         $user = $this->usersRepository->update( $id, $request );
 

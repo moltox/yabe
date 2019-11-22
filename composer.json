@@ -16,7 +16,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "davejamesmiller\\Breadcrumbs\\BreadcrumbsServiceProvicer"
+                "davejamesmiller\\Breadcrumbs\\BreadcrumbsServiceProvider"
             ],
             "aliases": {
                 "Breadcrumbs": "DaveJamesMiller\\Breadcrumbs\\Facades\\Breadcrumbs"

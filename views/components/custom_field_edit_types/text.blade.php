@@ -2,7 +2,7 @@
 
     <div class="control has-icons-left">
 
-        <input name="__cf__{{ $cfg['name'] }}"
+        <input name="{{ config('custom_fields.config.leading_cf_field_pattern') . $cfg['name'] }}"
                class="input @if($errors->has('name')) is-danger @else is-primary @endif"
                type="{{ $cfg['content_type'] }}"
                placeholder="{{ __($cfg['placeholder']) }}"
@@ -21,16 +21,18 @@
         @endif
     </div>
 
-    <label class="label"><small>{{ __($cfg['caption']) }}</small></label>
+    @if( $errors->has( config('custom_fields.config.leading_cf_field_pattern') . $cfg['name']) )
 
-    @if( $errors->has($cfg['name']))
+        @foreach($errors->get( config('custom_fields.config.leading_cf_field_pattern') . $cfg['name'] ) as $msg )
 
-        @foreach($errors->get($cfg['name']) as $msg)
-
-            <p class="help is-danger">{{ $msg }}</p>
+            <p class="help is-danger">{{ str_replace( config('custom_fields.config.leading_cf_field_pattern'), '', $msg ) }}</p>
 
         @endforeach
 
     @endif
+
+    <label class="label"><small>{{ __($cfg['caption']) }}</small></label>
+
+
 
 </div>
