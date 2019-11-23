@@ -1,18 +1,19 @@
-<table class="table">
+<div class="box">
+    <table class="table">
 
-    <thead>
+        <thead>
 
-    @include('yabe::users.partials.index.table_head')
+        @include('yabe::users.partials.index.table_head')
 
-    </thead>
+        </thead>
 
-    <tbody>
+        <tbody>
 
-    @include('yabe::users.partials.index.table_body')
+        @include('yabe::users.partials.index.table_body')
 
-    </tbody>
+        </tbody>
 
 
-
-</table>
-{{ $users->links('yabe::components.pagination') }}
+    </table>
+    {{ $users->links('yabe::components.pagination') }}
+</div>

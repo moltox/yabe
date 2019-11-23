@@ -11,12 +11,12 @@
 
 <section class="section" style="margin: 0; padding: 0">
 
-    <div class="mBreadcrumb has-background-grey-lighter">
+    <div class="mBreadcrumb has-background-white-ter">
         {{ Breadcrumbs::render() }}
     </div>
 
 </section>
-<section class="section has-background-grey-lighter">
+<section class="section has-background-white-ter">
 
     @yield('content')
 
@@ -28,5 +28,7 @@
 
 </section>
 </body>
+
+
 </html>
 

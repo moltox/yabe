@@ -27,7 +27,7 @@
 
                         </div>
 
-                        <label class="label"><small>{{ __('yabe::words.Name') }}</small></label>
+                        <label class="label is-capitalized"><small>{{ __('yabe::words.name') }}</small></label>
 
                         @if( $errors->has('name'))
 
@@ -73,10 +73,10 @@
 
                     <div class="field is-grouped">
                         <div class="control">
-                            <button formtarget="personaldata" class="button is-link">{{ __('yabe::words.Save') }}</button>
+                            <button formtarget="personaldata" class="button is-link is-capitalized">{{ __('yabe::words.save') }}</button>
                         </div>
                         <div class="control">
-                            <button formtarget="personaldata" class="button is-link is-light">{{ __('yabe::words.Cancel') }}</button>
+                            <button formtarget="personaldata" class="button is-link is-light is-capitalized">{{ __('yabe::words.cancel') }}</button>
                         </div>
                     </div>
 
