@@ -29,6 +29,10 @@ Route::group( [ 'middleware' => [ 'web', 'auth' ],
 
     Route::get( '/roles/{role}/removepermission/{permission}', 'moltox\yabe\Http\Controllers\RoleController@removePermissionTo' )->name( 'removePermissionFromRole' );
 
+    Route::get( '/roles/{role}/adduser{user}', 'moltox\yabe\Http\Controllers\RoleController@addUser' )->name( 'addUserToRole' );
+
+    Route::get( '/roles/{role}/removeuser/{user}', 'moltox\yabe\Http\Controllers\RoleController@removeUser' )->name( 'removeUserFromRole' );
+
     Route::resource( '/roles', 'moltox\yabe\Http\Controllers\RoleController' )->names( [
         'index' => 'y_roles.index',
         'store' => 'y_roles.store',

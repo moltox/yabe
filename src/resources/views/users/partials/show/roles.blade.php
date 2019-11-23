@@ -1,4 +1,4 @@
-<div class="card" style="width: fit-content; max-width: 100px">
+<div class="card" style="width: fit-content; max-width: 160px">
 
     <div class="card-columns">
 

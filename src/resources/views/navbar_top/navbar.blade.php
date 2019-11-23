@@ -12,27 +12,27 @@
 
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-            <a class="navbar-item" href="{{ route('yabe') }}">
-                {{ __('yabe::words.Home') }}
+            <a class="navbar-item is-capitalized" href="{{ route('yabe') }}">
+                {{ __('yabe::words.home') }}
             </a>
 
             <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
-                    {{ __('yabe::words.User') }}
+                <a class="navbar-link is-capitalized">
+                    {{ __('yabe::words.user') }}
                 </a>
 
                 <div class="navbar-dropdown">
 
-                    <a class="navbar-item" href="{{ route('y_users.index') }}">
-                        {{ Str::plural( __('yabe::words.User') ) }}
+                    <a class="navbar-item is-capitalized" href="{{ route('y_users.index') }}">
+                        {{ Str::plural( __('yabe::words.user') ) }}
                     </a>
 
-                    <a class="navbar-item" href="{{ route('y_roles.index') }}">
-                        {{ Str::plural( __('yabe::words.Role') ) }}
+                    <a class="navbar-item is-capitalized" href="{{ route('y_roles.index') }}">
+                        {{ Str::plural( __('yabe::words.role') ) }}
                     </a>
 
-                    <a class="navbar-item" href="{{ route('y_permissions.index') }}">
-                        {{ Str::plural( __('yabe::words.Permission') ) }}
+                    <a class="navbar-item is-capitalized" href="{{ route('y_permissions.index') }}">
+                        {{ Str::plural( __('yabe::words.permission') ) }}
                     </a>
 
                 </div>

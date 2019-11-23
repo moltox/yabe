@@ -1,6 +1,6 @@
 <article class="panel is-primary">
-    <p class="panel-heading">
-        {{ __('yabe::words.Permissions') }}
+    <p class="panel-heading is-capitalized">
+        {{ Str::plural( __('yabe::words.permission') ) }}
     </p>
 
     <p class="panel-tabs">

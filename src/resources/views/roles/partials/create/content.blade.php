@@ -32,7 +32,7 @@
 
                         </div>
 
-                        <label class="label"><small>{{ __('yabe::words.Name') }}</small></label>
+                        <label class="label is-capitalized"><small>{{ __('yabe::words.name') }}</small></label>
 
                         @if( $errors->has('name'))
 

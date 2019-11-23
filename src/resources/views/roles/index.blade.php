@@ -4,33 +4,44 @@
 
     <div class="columns">
 
-        <div class="column is-two-fifth">
+        <div class="column is-one-third">
 
-            @include('yabe::roles.partials.index.table')
-
-        </div>
-
-        <div class="column is-one-fifth">
-
-            @if(isset($role))
-
-                @include('yabe::roles.partials.edit.content')
-
-            @else
-
-                @include('yabe::roles.partials.create.content')
-
-            @endif
+            @include('yabe::roles.partials.index.card')
 
         </div>
 
-        <div class="column">
+        <div class="column is-two-third">
 
-            @if(isset($role))
+            <div class="columns">
 
-                @include('yabe::roles.partials.edit.permissions')
+                <div class="column">
 
-            @endif
+                    @if(isset($role))
+
+                        @include('yabe::roles.partials.edit.content')
+
+                    @else
+
+                        @include('yabe::roles.partials.create.content')
+
+                    @endif
+
+                </div>
+
+                <div class="column">
+
+                    @includeWhen(isset($role), 'yabe::roles.partials.edit.permissions')
+
+                </div>
+
+                <div class="column">
+
+                    @includeWhen(isset($role), 'yabe::roles.partials.edit.users')
+
+                </div>
+
+            </div>
+
 
         </div>
 

@@ -2,7 +2,6 @@
 
 namespace moltox\yabe\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use moltox\yabe\Helper\CustomFieldHelper;
@@ -84,9 +83,11 @@ class RoleController extends Controller {
      */
     public function edit( Role $role ) {
 
+        $users = $this->user->all();
+
         $roles = Role::select( '*' )->orderBy( 'name', 'asc' )->paginate( 10 );
 
-        return view( 'yabe::roles.index', compact( 'role', 'roles' ) );
+        return view( 'yabe::roles.index', compact( 'role', 'roles', 'users' ) );
 
     }
 
@@ -136,7 +137,7 @@ class RoleController extends Controller {
 
         $role->givePermissionTo( $permission );
 
-        return redirect( route( 'y_roles.edit', ['role' => $role] ) );
+        return redirect( route( 'y_roles.edit', [ 'role' => $role ] ) );
 
     }
 
@@ -144,7 +145,23 @@ class RoleController extends Controller {
 
         $role->revokePermissionTo( $permission );
 
-        return redirect( route( 'y_roles.edit', ['role' => $role] ) );
+        return redirect( route( 'y_roles.edit', [ 'role' => $role ] ) );
+
+    }
+
+    public function addUser( Role $role, $user ) {
+
+        dd( $user );
+
+    }
+
+    public function removeUser( Role $role, $user ) {
+
+        $user = $this->user->find ( $user );
+
+        $user->removeRole( $role );
+
+        return redirect( route( 'y_roles.edit', [ 'role' => $role ] ) );
 
     }
 

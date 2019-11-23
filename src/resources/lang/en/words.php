@@ -2,23 +2,23 @@
 
 return [
 
-    'All' => 'All',
-    'Cancel' => 'Cancel',
+    'all' => 'all',
+    'cancel' => 'cancel',
     'created_at' => 'created at',
     'delete' => 'delete',
-    'Direct' => 'Direct',
+    'direct' => 'direct',
     'edit' => 'edit',
     'email' => 'E-Mail',
-    'Name' => 'Name',
-    'Home' => 'Home',
-    'password' => 'Password',
-    'Permission' => 'Permissions',
-    'Role' => 'Role',
-    'Save' => 'Save',
-    'signedup_at' => 'Signed up',
+    'name' => 'name',
+    'home' => 'home',
+    'password' => 'password',
+    'permission' => 'permissions',
+    'role' => 'role',
+    'save' => 'save',
+    'signedup_at' => 'signed up',
     'updated_at' => 'updated at',
-    'User' => 'User',
-    'username' => 'Username',
+    'user' => 'user',
+    'username' => 'username',
 
 
 ];
