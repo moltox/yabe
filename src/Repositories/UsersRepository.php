@@ -3,6 +3,8 @@
 namespace moltox\yabe\Repositories;
 
 
+use Illuminate\Support\Facades\Hash;
+
 class UsersRepository extends AbstractRepository {
 
     protected $user;
@@ -26,6 +28,24 @@ class UsersRepository extends AbstractRepository {
     public function show( $id ) {
 
         return $this->user->find( $id );
+
+    }
+
+    public function create( $request )  {
+
+        $userClass = config( 'yabe.user_model_path' );
+
+        $user = new $userClass;
+
+        $user->name = $request['name'];
+
+        $user->email = $request['email'];
+
+        $user->password = Hash::make( $request['password'] );
+
+        $user->save();
+
+        return $user;
 
     }
 

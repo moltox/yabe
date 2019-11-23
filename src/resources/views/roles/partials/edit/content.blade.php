@@ -1,22 +1,25 @@
 <div class="card">
 
-        @csrf
 
-        @method('patch')
+    <header class="card-header">
 
-        <header class="card-header">
+        <p class="card-header-title">
+            {{ Str::title( __('yabe::phrase.edit_role')) }}
+        </p>
 
-            <p class="card-header-title">
-                {{ Str::title( __('yabe::phrase.edit_role')) }}
-            </p>
+        @include('yabe::components.delete_button', ['url' => route('y_roles.destroy', ['role' => $role])])
 
-            @include('yabe::components.delete_button', ['url' => route('y_roles.destroy', ['role' => $role])])
+    </header>
 
-        </header>
+    <div class="card-content">
 
-        <div class="card-content">
+        <div class="content">
 
-            <div class="content">
+            <form id="role_edit" name="role_edit" action="{{ route('y_roles.update', ['role' => $role]) }}" method="POST">
+
+                @csrf
+
+                @method('patch')
 
                 <div class="box">
 
@@ -94,24 +97,26 @@
 
                 </div>
 
-            </div>
+            </form>
 
         </div>
 
-        <footer class="card-footer">
-            <a href="#" class="card-footer-item">&nbsp;</a>
-            <a href="#" class="card-footer-item">&nbsp;</a>
-            <div class="card-footer-item">
+    </div>
 
-                <button type="submit" class="button is-link">
+    <footer class="card-footer">
+        <a href="#" class="card-footer-item">&nbsp;</a>
+        <a href="#" class="card-footer-item">&nbsp;</a>
+        <div class="card-footer-item">
+
+            <button onclick="document.role_edit.submit()" type="submit" class="button is-link">
                     <span class="icon">
                         <i class="fas fa-save"></i>
                     </span>
-                    <span class="is-capitalized">{{ __('yabe::words.save' ) }}</span></button>
+                <span class="is-capitalized">{{ __('yabe::words.save' ) }}</span></button>
 
-            </div>
+        </div>
 
-        </footer>
+    </footer>
 
     </form>
 

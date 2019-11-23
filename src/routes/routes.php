@@ -23,7 +23,7 @@ Route::group( [ 'middleware' => [ 'web', 'auth' ],
         'update' => 'y_users.update',
         'destroy' => 'y_users.destroy',
         'edit' => 'y_users.edit'
-    ] );
+    ] )->except(['create']);
 
     Route::get( '/roles/{role}/givepermission/{permission}', 'moltox\yabe\Http\Controllers\RoleController@givePermissionTo' )->name( 'giveRolePermissionTo' );
 

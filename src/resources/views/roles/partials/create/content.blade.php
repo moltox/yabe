@@ -105,7 +105,7 @@
                     <span class="icon">
                         <i class="fas fa-save"></i>
                     </span>
-                    <span>{{ __('yabe::words.Save' ) }}</span></button>
+                    <span class="is-capitalized">{{ __('yabe::words.save' ) }}</span></button>
 
             </div>
 

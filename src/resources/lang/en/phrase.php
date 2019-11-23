@@ -6,6 +6,7 @@ return [
     'assigned_roles' => 'assigned roles',
     'change_password' => 'change password',
     'choose_permissions' => 'choose permissions',
+    'create_new_user' => 'create<br>new user',
     'create_permission' => 'create permission',
     'create_role' => 'create role',
     'direct_permissions' => 'direct permissions',

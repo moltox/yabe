@@ -63,7 +63,7 @@ class RoleController extends Controller {
 
         $validated = $this->validate( $request, [
 
-            'name' => 'required|min:8|max:25',
+            'name' => 'required|min:3|max:25',
             'guard_name' => 'min:2|max:12',
 
         ] );
@@ -104,7 +104,7 @@ class RoleController extends Controller {
 
         $validated = $this->validate( $request, [
 
-            'name' => 'required|min:8|max:25',
+            'name' => 'required|min:3|max:25',
             'guard_name' => 'min:2|max:12',
 
         ] );

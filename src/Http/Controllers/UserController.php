@@ -9,7 +9,6 @@ use moltox\yabe\Helper\CustomFieldHelper;
 use moltox\yabe\Repositories\UsersRepository;
 
 
-
 class UserController extends AbstractController {
 
     /**
@@ -32,7 +31,7 @@ class UserController extends AbstractController {
 
         $this->usersRepository = $usersRepository;
 
-        $class =  config('yabe.user_model_path');
+        $class = config( 'yabe.user_model_path' );
 
         $this->userClass = $class;
 
@@ -51,18 +50,9 @@ class UserController extends AbstractController {
 
         $users = $users->paginate( 10 );
 
-        $customFields = config('custom_fields.User');
+        $customFields = config( 'custom_fields.User' );
 
         return view( 'yabe::users.index', compact( 'users', 'customFields' ) );
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create() {
-        //
     }
 
     /**
@@ -73,7 +63,21 @@ class UserController extends AbstractController {
      * @return \Illuminate\Http\Response
      */
     public function store( Request $request ) {
-        //
+
+        $passwordRegexPattern = '^\S*(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$^';
+
+        $validated = $this->validate( $request, [
+
+            'name' => 'required|min:3|max:25',
+            'email' => 'email|unique:users,email|max:35',
+            'password' => 'min:8|max:255|regex:' . $passwordRegexPattern,
+
+        ]);
+
+        $user = $this->usersRepository->create( $request );
+
+        return redirect( route( 'y_users.edit', [ 'user' => $user ] ) );
+
     }
 
     /**
@@ -87,7 +91,7 @@ class UserController extends AbstractController {
 
         $user = $this->usersRepository->show( $id );
 
-        $customFields = config('custom_fields.User');
+        $customFields = config( 'custom_fields.User' );
 
         return view( 'yabe::users.show', compact( 'user', 'customFields' ) );
 
@@ -104,7 +108,7 @@ class UserController extends AbstractController {
 
         $user = $this->usersRepository->show( $id );
 
-        $customFields = config('custom_fields.User');
+        $customFields = config( 'custom_fields.User' );
 
         return view( 'yabe::users.edit', compact( 'user', 'customFields' ) );
 
@@ -158,7 +162,7 @@ class UserController extends AbstractController {
 
         $this->usersRepository->givePermission( $user, $permission );
 
-        return redirect(route('y_users.edit', ['user' => $user]));
+        return redirect( route( 'y_users.edit', [ 'user' => $user ] ) );
 
     }
 
@@ -166,7 +170,7 @@ class UserController extends AbstractController {
 
         $this->usersRepository->removePermission( $user, $permission );
 
-        return redirect(route('y_users.edit', ['user' => $user]));
+        return redirect( route( 'y_users.edit', [ 'user' => $user ] ) );
 
     }
 
@@ -174,7 +178,7 @@ class UserController extends AbstractController {
 
         $this->usersRepository->giveRole( $user, $role );
 
-        return redirect(route('y_users.edit', ['user' => $user]));
+        return redirect( route( 'y_users.edit', [ 'user' => $user ] ) );
 
     }
 
@@ -182,18 +186,18 @@ class UserController extends AbstractController {
 
         $this->usersRepository->removeRole( $user, $role );
 
-        return redirect(route('y_users.edit', ['user' => $user]));
+        return redirect( route( 'y_users.edit', [ 'user' => $user ] ) );
 
     }
 
-    public function changePassword( Request $request,  $user ) {
+    public function changePassword( Request $request, $user ) {
 
         $validated = $this->validate( $request, [
             'password' => 'confirmed|min:6|max:255',
 
-        ]);
+        ] );
 
-        return redirect(route('y_users.edit', ['user' => $user]));
+        return redirect( route( 'y_users.edit', [ 'user' => $user ] ) );
 
     }
 
