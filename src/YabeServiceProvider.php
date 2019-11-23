@@ -3,8 +3,7 @@
 namespace moltox\yabe;
 
 use Illuminate\Support\ServiceProvider;
-
-use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
+use Illuminate\Support\Facades\View;
 
 class YabeServiceProvider extends ServiceProvider {
 
@@ -45,6 +44,16 @@ class YabeServiceProvider extends ServiceProvider {
         include __DIR__ . '/routes/routes.php';
 
         include __DIR__ . '/routes/breadcrumbs.php';
+
+        // Using Closure based composers...
+        View::composer(
+
+            'yabe::navbar_top.navbar', 'moltox\yabe\Http\View\Composers\MenuComposer'
+
+        );
+
+
+
 
     }
 
