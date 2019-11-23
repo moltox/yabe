@@ -74,3 +74,4 @@ Breadcrumbs::for( 'y_roles.edit', function ( $trail, $role ) {
     $trail->push( $role->name, route( 'y_users.edit', [ 'role' => $role ] ) );
 
 } );
+
