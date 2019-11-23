@@ -31,21 +31,31 @@ class UsersRepository extends AbstractRepository {
 
     }
 
-    public function create( $request )  {
+    public function create( $request ) {
 
         $userClass = config( 'yabe.user_model_path' );
 
         $user = new $userClass;
 
-        $user->name = $request['name'];
+        $user->name = $request[ 'name' ];
 
-        $user->email = $request['email'];
+        $user->email = $request[ 'email' ];
 
-        $user->password = Hash::make( $request['password'] );
+        $user->password = Hash::make( $request[ 'password' ] );
 
         $user->save();
 
         return $user;
+
+    }
+
+    public function changePassword( $userId, $password ) {
+
+        $user = $this->user->find( $userId );
+
+        $user->password = Hash::make( $password );
+
+        $user->save();
 
     }
 

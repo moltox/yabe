@@ -7,7 +7,11 @@
             {{ Str::title( __('yabe::phrase.edit_role')) }}
         </p>
 
-        @include('yabe::components.delete_button', ['url' => route('y_roles.destroy', ['role' => $role])])
+        @can('grant role delete')
+
+            @include('yabe::components.delete_button', ['url' => route('y_roles.destroy', ['role' => $role])])
+
+        @endcan
 
     </header>
 
@@ -15,7 +19,8 @@
 
         <div class="content">
 
-            <form id="role_edit" name="role_edit" action="{{ route('y_roles.update', ['role' => $role]) }}" method="POST">
+            <form id="role_edit" name="role_edit" action="{{ route('y_roles.update', ['role' => $role]) }}"
+                  method="POST">
 
                 @csrf
 

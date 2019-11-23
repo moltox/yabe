@@ -46,7 +46,7 @@ class AbstractRepository {
 
         $this->customFieldsConfig = config( 'custom_fields.config' );
 
-        $this->modelHasCustomFields = in_array('moltox\yabe\traits\CustomField', class_uses( $model ) );
+        $this->modelHasCustomFields = in_array('moltox\yabe\traits\Yabe', class_uses( $model ) );
 
     }
 

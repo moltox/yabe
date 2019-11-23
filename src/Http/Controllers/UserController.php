@@ -5,6 +5,7 @@ namespace moltox\yabe\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use moltox\yabe\Helper\CustomFieldHelper;
 use moltox\yabe\Repositories\UsersRepository;
 
@@ -26,6 +27,16 @@ class UserController extends AbstractController {
     protected $userClass;
 
     public function __construct( UsersRepository $usersRepository, CustomFieldHelper $customFieldHelper ) {
+
+        $this->middleware( 'permission:grant user list', [ 'only' => [ 'index' ] ] ); //List Permission
+        $this->middleware( 'permission:grant user create', [ 'only' => [ 'create', 'store' ] ] ); //Create Permission
+        $this->middleware( 'permission:grant user edit', [ 'only' => [ 'edit', 'update' ] ] ); //Update Permission
+        $this->middleware( 'permission:grant user delete', [ 'only' => [ 'destroy' ] ] ); //Delete Permission
+        $this->middleware( 'permission:grant user give permission', [ 'only' => [ 'addDirectPermission' ] ] );
+        $this->middleware( 'permission:grant user remove permission', [ 'only' => [ 'removeDirectPermission' ] ] );
+        $this->middleware( 'permission:grant user give role', [ 'only' => [ 'addDirectPermission' ] ] );
+        $this->middleware( 'permission:grant user remove role', [ 'only' => [ 'removeDirectPermission' ] ] );
+        $this->middleware( 'permission:grant user change password', [ 'only' => [ 'removeDirectPermission' ] ] );
 
         $this->customFieldHelper = $customFieldHelper;
 
@@ -196,6 +207,8 @@ class UserController extends AbstractController {
             'password' => 'confirmed|min:6|max:255',
 
         ] );
+
+        $this->usersRepository->changePassword( $user, $request['password']);
 
         return redirect( route( 'y_users.edit', [ 'user' => $user ] ) );
 

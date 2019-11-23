@@ -28,6 +28,13 @@ class RoleController extends Controller {
 
     public function __construct( UsersRepository $usersRepository ) {
 
+        $this->middleware( 'permission:grant role list', [ 'only' => [ 'index' ] ] ); //List Permission
+        $this->middleware( 'permission:grant role create', [ 'only' => [ 'create', 'store' ] ] ); //Create Permission
+        $this->middleware( 'permission:grant role edit', [ 'only' => [ 'edit', 'update' ] ] ); //Update Permission
+        $this->middleware( 'permission:grant role delete', [ 'only' => [ 'destroy' ] ] ); //Delete Permission
+        $this->middleware( 'permission:grant role give permission', [ 'only' => [ 'givePermissionTo' ] ] );
+        $this->middleware( 'permission:grant role remove permission', [ 'only' => [ 'removePermissionTo' ] ] );
+
         $this->usersRepository = $usersRepository;
 
         $class = config( 'yabe.user_model_path' );
@@ -35,6 +42,7 @@ class RoleController extends Controller {
         $this->userClass = $class;
 
         $this->user = new $class;
+
 
     }
 
@@ -157,7 +165,7 @@ class RoleController extends Controller {
 
     public function removeUser( Role $role, $user ) {
 
-        $user = $this->user->find ( $user );
+        $user = $this->user->find( $user );
 
         $user->removeRole( $role );
 
