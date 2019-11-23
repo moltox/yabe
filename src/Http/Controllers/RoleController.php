@@ -11,7 +11,7 @@ use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 
-class PermissionController extends Controller {
+class RoleController extends Controller {
 
     /**
      * @var UsersRepository $usersRepository
@@ -46,9 +46,9 @@ class PermissionController extends Controller {
      */
     public function index() {
 
-        $permissions = Permission::select( '*' )->orderBy( 'name', 'asc' )->paginate( 10 );
+        $roles = Role::select( '*' )->orderBy( 'name', 'asc' )->paginate( 10 );
 
-        return view( 'yabe::permissions.index', compact( 'permissions' ) );
+        return view( 'yabe::roles.index', compact( 'roles' ) );
 
     }
 
@@ -69,26 +69,24 @@ class PermissionController extends Controller {
 
         ] );
 
-        Permission::create( $validated );
+        Role::create( $validated );
 
-        return redirect( route( 'y_permissions.index' ) );
+        return redirect( route( 'y_roles.index' ) );
 
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param Role $role
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit( $id ) {
+    public function edit( Role $role ) {
 
-        $permission = Permission::find( $id );
+        $roles = Role::select( '*' )->orderBy( 'name', 'asc' )->paginate( 10 );
 
-        $permissions = Permission::select( '*' )->orderBy( 'name', 'asc' )->paginate( 10 );
-
-        return view( 'yabe::permissions.index', compact( 'permission', 'permissions' ) );
+        return view( 'yabe::roles.index', compact( 'role', 'roles' ) );
 
     }
 
@@ -101,7 +99,7 @@ class PermissionController extends Controller {
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update( Request $request, Permission $permission ) {
+    public function update( Request $request, Role $role ) {
 
         $validated = $this->validate( $request, [
 
@@ -110,11 +108,11 @@ class PermissionController extends Controller {
 
         ] );
 
-        $permission->update( $validated );
+        $role->update( $validated );
 
-        $permission->save();
+        $role->save();
 
-        return redirect( route( 'y_permissions.index' ) );
+        return redirect( route( 'y_roles.index' ) );
 
     }
 
@@ -126,29 +124,28 @@ class PermissionController extends Controller {
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy( Permission $permission ) {
+    public function destroy( Role $role ) {
 
-        $permission->delete();
+        $role->delete();
 
-        return redirect( route( 'y_permissions.index' ) );
-
-    }
-
-    public function addToRole( Request $request, Permission $permission, Role $role ) {
-
-        $permission->assignRole( $role );
-
-        return redirect( route( 'y_permissions.edit', ['permission' => $permission] ) );
+        return redirect( route( 'y_roles.index' ) );
 
     }
 
-    public function removeFromRole( Request $request, Permission $permission, Role $role ) {
+    public function givePermissionTo( Request $request, Role $role, Permission $permission ) {
 
-        $permission->removeRole( $role );
+        $role->givePermissionTo( $permission );
 
-        return redirect( route( 'y_permissions.edit', ['permission' => $permission] ) );
+        return redirect( route( 'y_roles.edit', ['role' => $role] ) );
 
     }
 
+    public function removePermissionTo( Request $request, Role $role, Permission $permission ) {
+
+        $role->revokePermissionTo( $permission );
+
+        return redirect( route( 'y_roles.edit', ['role' => $role] ) );
+
+    }
 
 }

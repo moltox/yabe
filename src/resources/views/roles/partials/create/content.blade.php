@@ -1,16 +1,14 @@
 <div class="card">
 
-        @csrf
+    <form action="{{route('y_roles.store')}}" method="POST">
 
-        @method('patch')
+        @csrf
 
         <header class="card-header">
 
             <p class="card-header-title">
-                {{ Str::title( __('yabe::phrase.edit_role')) }}
+                {{ Str::title( __('yabe::phrase.create_role')) }}
             </p>
-
-            @include('yabe::components.delete_button', ['url' => route('y_roles.destroy', ['role' => $role])])
 
         </header>
 
@@ -26,7 +24,7 @@
 
                             <input name="name"
                                    class="input @if($errors->has('name')) is-danger @else is-primary @endif"
-                                   type="text" value="{{ $role->name }}">
+                                   type="text">
 
                             <span class="icon is-small is-left">
                                         <i class="fas fa-lock"></i>
@@ -61,7 +59,7 @@
                                 <select name="guard_name"
                                         class="input @if($errors->has('name')) is-danger @else is-primary @endif">
 
-                                    <option value="{{ $role->guard_name }}">{{ $role->guard_name }}</option>
+                                    <option value="web">web</option>
                                     @foreach(config('auth.guards') as $guard => $values)
 
                                         <option value="{{ $guard }}">{{ $guard }}</option>

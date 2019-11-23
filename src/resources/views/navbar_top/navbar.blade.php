@@ -27,10 +27,10 @@
                         {{ Str::plural( __('yabe::words.User') ) }}
                     </a>
 
-                    {{--<a class="navbar-item" href="{{ route('y_roles.index') }}">
+                    <a class="navbar-item" href="{{ route('y_roles.index') }}">
                         {{ Str::plural( __('yabe::words.Role') ) }}
                     </a>
---}}
+
                     <a class="navbar-item" href="{{ route('y_permissions.index') }}">
                         {{ Str::plural( __('yabe::words.Permission') ) }}
                     </a>

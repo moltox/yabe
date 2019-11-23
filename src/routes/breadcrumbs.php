@@ -45,3 +45,32 @@ Breadcrumbs::for('y_permissions.index', function ($trail)  {
     $trail->push(Str::plural( __('yabe::words.Permission')), route('y_permissions.index'));
 
 });
+
+Breadcrumbs::for('y_permissions.edit', function ($trail, $permission)  {
+
+
+    $permission = Spatie\Permission\Models\Permission::findOrFail($permission);
+
+    $trail->parent('y_permissions.index');
+
+    $trail->push( $permission->name, route('y_users.edit', ['permission'=>$permission]));
+
+});
+
+
+Breadcrumbs::for('y_roles.index', function ($trail)  {
+
+    $trail->parent('yabe');
+    $trail->push(Str::plural( __('yabe::words.Role')), route('y_roles.index'));
+
+});
+
+Breadcrumbs::for('y_roles.edit', function ($trail, $role)  {
+
+    $role = Spatie\Permission\Models\Role::findOrFail($role->id);
+
+    $trail->parent('y_roles.index');
+
+    $trail->push($role->name, route('y_users.edit', ['role'=>$role]));
+
+});

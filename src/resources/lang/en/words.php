@@ -5,6 +5,7 @@ return [
     'All' => 'All',
     'Cancel' => 'Cancel',
     'created_at' => 'created at',
+    'delete' => 'delete',
     'Direct' => 'Direct',
     'edit' => 'edit',
     'email' => 'E-Mail',

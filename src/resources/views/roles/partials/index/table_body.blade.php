@@ -1,5 +1,5 @@
-@foreach($users as $user)
+@foreach($roles as $role)
 
-    @include('yabe::users.partials.index.table_body_row')
+    @include('yabe::roles.partials.index.table_body_row')
 
 @endforeach
