@@ -42,7 +42,7 @@ Breadcrumbs::for( 'y_users.edit', function ( $trail, $user ) {
 Breadcrumbs::for( 'y_permissions.index', function ( $trail ) {
 
     $trail->parent( 'yabe' );
-    $trail->push( Str::plural( __( 'yabe::words.permission' ) ), route( 'y_permissions.index' ) );
+    $trail->push( Str::title( Str::plural( __( 'yabe::words.permission' ) ) ), route( 'y_permissions.index' ) );
 
 } );
 
