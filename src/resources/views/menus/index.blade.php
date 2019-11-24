@@ -10,7 +10,7 @@
 
         </div>
 
-        <div class="column">
+        <div class="column is-one-fifth">
 
             @include('yabe::menus.partials.edit.content')
 

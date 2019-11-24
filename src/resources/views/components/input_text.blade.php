@@ -20,7 +20,7 @@
         @endif
     </div>
 
-    <label class="label is-capitalized"><small>{{ $label }}</small></label>
+    <label class="label is-capitalized is-small">{{ $label }}</label>
 
     @if( $errors->has($name))
 

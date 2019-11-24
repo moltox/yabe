@@ -46,4 +46,13 @@ class MenusRepository extends AbstractRepository {
 
     }
 
+    public function getAllParents() {
+
+        $query = $this->model->select('*')
+                 ->where('active', true)
+                 ->where('parent', true);
+
+        return $query->get();
+    }
+
 }
