@@ -65,17 +65,22 @@ class MenusRepository extends AbstractRepository {
 
         if ($nextMenu == null) return null;
 
-        return $this->moveMenuDown( $nextMenu, $menu );
+        $this->moveMenuDown( $nextMenu, $menu );
+
+        $this->refreshOrder( $menu->context );
 
     }
 
     public function moveDown( Menu $menu ) {
 
+
         $nextMenu = $this->getNextPossibleMenu( $menu, false );
 
         if ($nextMenu == null) return null;
 
-        return $this->moveMenuDown( $menu, $nextMenu );
+        $this->moveMenuDown( $menu, $nextMenu );
+
+        $this->refreshOrder( $menu->context );
 
     }
 
@@ -195,6 +200,26 @@ class MenusRepository extends AbstractRepository {
 
 
 
+    private function refreshOrder( $context )  {
+
+        $menus = $this->all( $context )
+                ->orderBy('sequence', 'asc')
+                ->orderBy('parent', 'desc')
+                ->get();
+
+        $seq = 1;
+
+        foreach ($menus as $menu)  {
+
+            $menu->sequence = $seq;
+
+            $menu->save();
+
+            $seq++;
+
+        }
+
+    }
 
 
 
