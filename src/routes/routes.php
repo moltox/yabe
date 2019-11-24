@@ -53,6 +53,10 @@ Route::group( [ 'middleware' => [ 'web', 'auth' ],
         'edit' => 'y_permissions.edit'
     ] )->except( [ 'create', 'show' ] );
 
+    Route::get('/menus/{menu}/moveup', 'moltox\yabe\Http\Controllers\MenuController@moveUp' )->name('moveMenuUp');
+
+    Route::get('/menus/{menu}/movedown', 'moltox\yabe\Http\Controllers\MenuController@moveDown' )->name('moveMenuDown');
+
     Route::resource( '/menus', 'moltox\yabe\Http\Controllers\MenuController' )->names( [
         'index' => 'y_menus.index',
         'store' => 'y_menus.store',

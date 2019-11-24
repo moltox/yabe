@@ -12,7 +12,7 @@
 
         <div class="column is-one-fifth">
 
-            @include('yabe::menus.partials.edit.content')
+            @includeWhen(isset($menu), 'yabe::menus.partials.edit.content')
 
         </div>
 

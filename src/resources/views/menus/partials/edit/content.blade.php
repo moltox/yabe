@@ -9,40 +9,38 @@
 
     <div class="panel-block" style="margin-top: 60px">
 
-        <form action="{{ route('y_menus.update', ['menu' => $menu]) }}" method="POST">
+        <form id="menu_edit" name="menu_edit" action="{{ route('y_menus.update', ['menu' => $menu]) }}" method="POST">
 
             @csrf
             @method('patch')
-
-
-<input type="radio">
 
 
             <div class="columns">
 
                 <div class="column">
 
-                    <div class="field">
-
-                        <div class="select">
-
-                            <select id="context" name="context">
-
-                                @foreach($contexts as $context)
-
-                                    <option value="{{ $context['context'] }}">{{ $context['context'] }}</option>
-
-                                @endforeach
-
-                            </select>
-
-                        </div>
-
-                        <label for="context" class="label is-small">Context</label>
-
-                    </div>
+                    @include('yabe::components.switch', [
+            'id' => 'active',
+            'checked' => $menu->active == true,
+            'label' => __('yabe::words.active'),
+            'name' => 'active'])
 
                 </div>
+
+                <div class="column">
+
+                    @include('yabe::components.switch', [
+            'id' => 'is_parent',
+            'checked' => $menu->parent == true,
+            'label' => __('yabe::words.is_parent'),
+            'name' => 'parent'])
+
+                </div>
+
+            </div>
+
+
+            <div class="columns">
 
                 <div class="column">
 
@@ -54,9 +52,24 @@
 
                                 @foreach($parents as $parent)
 
-                                    <option value="{{ $parent->id }}">{{ $parent->name }}</option>
+                                    @if($parent->id == $menu->parent_id)
+
+                                        <option value="{{ $parent->id }}">{{ $parent->name }}</option>
+
+                                    @endif
 
                                 @endforeach
+
+                                @foreach($parents as $parent)
+
+                                        @if($parent->id != $menu->parent_id)
+
+                                            <option value="{{ $parent->id }}">{{ $parent->name }}</option>
+
+                                        @endif
+
+
+                                    @endforeach
 
                             </select>
 
@@ -68,14 +81,7 @@
 
                 </div>
 
-                <div class="column">
-
-
-
-                </div>
-
             </div>
-
 
 
             @include('yabe::components.input_text', [
@@ -102,10 +108,48 @@
 
             ])
 
+            @include('yabe::components.input_text', [
+                'name' => 'context',
+                'value' => $menu->context,
+                'iconClass' => "fas fa-bars",
+                'label' => __('yabe::words.context')
+
+            ])
+
 
         </form>
 
 
     </div>
+
+    <footer class="footer">
+
+        <div class="columns">
+
+            <div class="column">
+
+                <div class="footer-item">
+
+                    <button for="menu_edit" type="submit" class="button is-link" onclick="document.menu_edit.submit()">
+                        Save
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="column">
+
+                <div class="footer-item">
+
+                    <button type="cancel" class="button">Cancel</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
 
 </article>

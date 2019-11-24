@@ -23,4 +23,20 @@ class Menu extends Model
 
     }
 
+    public function getChildsAttribute()  {
+
+        $childs = $this->newQuery()->where('parent_id', $this->id );
+
+        return $childs->get();
+
+    }
+
+    public function getParentMenuAttribute()  {
+
+        $parent = $this->newQuery()->where('id', $this->parent_id );
+
+        return $parent->first();
+
+    }
+
 }

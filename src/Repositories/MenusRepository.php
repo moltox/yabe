@@ -5,6 +5,8 @@ namespace moltox\yabe\Repositories;
 
 
 use moltox\yabe\Menu;
+use Illuminate\Support\Facades\Log;
+
 
 class MenusRepository extends AbstractRepository {
 
@@ -14,14 +16,16 @@ class MenusRepository extends AbstractRepository {
 
     }
 
-    public function all( $context = '' ) {
+    public function all( $context = '', $showRoot = false ) {
 
         $query = $this->model->select( '*' );
 
         if ( $context != '' ) $query = $query->where( 'context', $context );
 
+        if ( !$showRoot ) $query = $query->where( 'name', '!=', 'root' );
+
         $query->orderBy( 'context', 'asc' )
-              ->orderBy( 'sequence', 'asc' );
+            ->orderBy( 'sequence', 'asc' );
 
         return $query;
 
@@ -48,11 +52,150 @@ class MenusRepository extends AbstractRepository {
 
     public function getAllParents() {
 
-        $query = $this->model->select('*')
-                 ->where('active', true)
-                 ->where('parent', true);
+        $query = $this->model->select( '*' )
+            ->where( 'active', true )
+            ->where( 'parent', true );
 
         return $query->get();
     }
+
+    public function moveUp( Menu $menu ) {
+
+        $nextMenu = $this->getNextPossibleMenu( $menu, true );
+
+        if ($nextMenu == null) return null;
+
+        return $this->moveMenuDown( $nextMenu, $menu );
+
+    }
+
+    public function moveDown( Menu $menu ) {
+
+        $nextMenu = $this->getNextPossibleMenu( $menu, false );
+
+        if ($nextMenu == null) return null;
+
+        return $this->moveMenuDown( $menu, $nextMenu );
+
+    }
+
+    private function moveMenuDown( Menu $srcMenu, Menu $targetMenu ) {
+
+        $oldSequences['src'] = $srcMenu->sequence;
+        $oldSequences['target'] = $targetMenu;
+
+        // move belonging
+        $this->moveMenusToNewSlot( $targetMenu, $oldSequences['src'] );
+
+        // move notbelonging
+        $this->moveMenusToNewSlot( $srcMenu, $oldSequences['src'] + $targetMenu->childs->count() + 1 );
+
+        return;
+
+    }
+
+
+    private function moveMenusToNewSlot( Menu $menu, $newSequence ) {
+
+        $tempSequence = $newSequence;
+
+        $menu->sequence = $newSequence;
+
+        $menu->save();
+
+        foreach ( $menu->childs as $child ) {
+
+            $tempSequence++;
+
+            Log::info( 'Moving child ' . $child->name . ' from sequence ' . $child->sequence . ' to ' . $tempSequence );
+
+            $child->sequence = $tempSequence;
+
+            $child->save();
+
+        }
+
+    }
+
+    /**
+     * @param Menu $menu
+     * @param bool $moveUp
+     *
+     * @return Menu|null
+     *
+     * Function to lookup the next possible menu to swap with
+     * in this function are all security checks (bounds etc )
+     *
+     */
+
+    private function getNextPossibleMenu( Menu $menu, $moveUp = true ) {
+
+        if ($moveUp)  {
+
+            $nextSequence = $menu->sequence - 1;
+
+            if ($nextSequence < 1) return null;
+
+        }  else  {  // moving down
+
+            if ($menu->childs->count() > 0) {
+
+                $nextSequence = $menu->childs->last()->sequence + 1;
+
+            } elseif( $menu->sequence >= $menu->parentMenu->childs->last()->sequence )  {  // check if already last in menu
+
+                return null;
+
+            } else  {
+
+                $nextSequence = $menu->sequence + 1;
+
+            }
+
+            if ($nextSequence > $this->all( $menu->context, 'false')->count() ) return null;
+
+        }
+
+        $nextPossibleMenu = $this->getMenuBySequence( $nextSequence, $menu->context );
+
+        return $nextPossibleMenu;
+
+    }
+
+
+    /**
+     * @param $sequence
+     * @param $context
+     *
+     * @return Menu $menu
+     *
+     * Finds and returns a whole menu by sequence number
+     *
+     * if the sequence number points to a parent, this will be returned
+     * if the sequence number points to a child, the parent will be returned
+     * if the sequence number points to a menu which is no parent, but on
+     *    root level ( parent_id = 1 ), this menu will be returned
+     *
+     */
+    private function getMenuBySequence( $sequence, $context ) {
+
+        $menu = $this->model->where('sequence', $sequence)
+            ->where('context', $context)
+            ->first();
+
+        if ( $menu->parent || $menu->parent_id == 1 )  {
+
+            return $menu;
+
+        }
+
+        return $menu->parentMenu;
+
+    }
+
+
+
+
+
 
 }

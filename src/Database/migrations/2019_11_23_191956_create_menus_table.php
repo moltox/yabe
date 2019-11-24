@@ -23,7 +23,7 @@ class CreateMenusTable extends Migration
             $table->string('context')->default('yabe');
             $table->string('permission')->default('backend');
             $table->integer('sequence');
-            $table->bigInteger('parent_id')->default(0);
+            $table->bigInteger('parent_id')->default(1);
             $table->boolean('parent')->default(false);
             $table->boolean('active')->default(true);
             $table->softDeletes();

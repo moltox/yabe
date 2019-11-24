@@ -1,6 +1,6 @@
 @php
 
-    if ( !isset($parentId) ) $parentId = 0;
+    if ( !isset($parentId) ) $parentId = 1;
 
 @endphp
 

@@ -21,7 +21,9 @@ class MenuComposer {
 
     public function compose( View $view ) {
 
-        $view->with('menus', $this->menus->forNavBarView());
+        $navbarView = $this->menus->forNavBarView();
+
+        $view->with('menus', $navbarView);
 
     }
 

@@ -28,15 +28,15 @@ class MenuController extends AbstractController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request) {
+    public function index( Request $request ) {
 
         $contexts = $this->menusRepository->getContexts()->get()->toArray();
 
-        $context = $request->has('context') ? $request['context'] : '';
+        $context = $request->has( 'context' ) ? $request[ 'context' ] : '';
 
         $menus = $this->menusRepository->all( $context )->get();
 
-        return view( 'yabe::menus.index', compact('menus', 'contexts', 'context') );
+        return view( 'yabe::menus.index', compact( 'menus', 'contexts', 'context' ) );
 
     }
 
@@ -64,13 +64,13 @@ class MenuController extends AbstractController {
 
         $contexts = $this->menusRepository->getContexts()->get()->toArray();
 
-        $context = $request->has('context') ? $request['context'] : '';
+        $context = $request->has( 'context' ) ? $request[ 'context' ] : '';
 
         $menus = $this->menusRepository->all( $context )->get();
 
         $parents = $this->menusRepository->getAllParents();
 
-        return view( 'yabe::menus.index', compact('menus', 'contexts', 'context', 'menu', 'parents') );
+        return view( 'yabe::menus.index', compact( 'menus', 'contexts', 'context', 'menu', 'parents' ) );
 
     }
 
@@ -79,7 +79,23 @@ class MenuController extends AbstractController {
      * @param Menu    $menu
      */
     public function update( Request $request, Menu $menu ) {
-        //
+
+        $this->checkBoxMerge( $request, 'active' );
+
+        $this->checkBoxMerge( $request, 'parent' );
+
+        $validated = $this->validate( $request, [
+
+            'name' => 'max:15',
+            'title' => 'max:255',
+            'context' => 'required',
+
+        ] );
+
+        $this->menusRepository->update( $menu->id, $request );
+
+        return redirect( route( 'y_menus.edit', [ 'menu' => $menu ] ) );
+
     }
 
     /**
@@ -91,6 +107,22 @@ class MenuController extends AbstractController {
      */
     public function destroy( Menu $menu ) {
         //
+    }
+
+    public function moveUp( Request $request, Menu $menu ) {
+
+        $this->menusRepository->moveUp( $menu );
+
+        return redirect( route( 'y_menus.edit', [ 'menu' => $menu ] ) );
+
+    }
+
+    public function moveDown(  Request $request, Menu $menu ) {
+
+        $this->menusRepository->moveDown( $menu );
+
+        return redirect( route( 'y_menus.edit', [ 'menu' => $menu ] ) );
+
     }
 
 }

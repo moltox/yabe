@@ -2,7 +2,7 @@
 
     <div class="control has-icons-left">
 
-        <input name="name"
+        <input name="{{ $name }}"
                class="input @if($errors->has($name)) is-danger @else is-primary @endif"
                type="text"
                @if (isset($value))
@@ -18,6 +18,7 @@
             </span>
 
         @endif
+
     </div>
 
     <label class="label is-capitalized is-small">{{ $label }}</label>
