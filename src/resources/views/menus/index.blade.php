@@ -14,6 +14,8 @@
 
             @includeWhen(isset($menu), 'yabe::menus.partials.edit.content')
 
+            @includeWhen(!isset($menu), 'yabe::menus.partials.create.content')
+
         </div>
 
     </div>
