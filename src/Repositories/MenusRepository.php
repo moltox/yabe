@@ -14,6 +14,19 @@ class MenusRepository extends AbstractRepository {
 
     }
 
+    public function all( $context = '' ) {
+
+        $query = $this->model->select( '*' );
+
+        if ( $context != '' ) $query = $query->where( 'context', $context );
+
+        $query->orderBy( 'context', 'asc' )
+              ->orderBy( 'sequence', 'asc' );
+
+        return $query;
+
+    }
+
     public function forNavbarView( $context = 'yabe' ) {
 
         $menus = $this->model->select( '*' )
@@ -22,6 +35,14 @@ class MenusRepository extends AbstractRepository {
             ->orderBy( 'sequence', 'asc' );
 
         return $menus->get();
+
+    }
+
+    public function getContexts() {
+
+        return $this->model->select( 'context' )
+            ->groupBy( 'context' )
+            ->orderBy( 'context', 'asc' );
 
     }
 

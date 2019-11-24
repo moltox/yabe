@@ -53,4 +53,12 @@ Route::group( [ 'middleware' => [ 'web', 'auth' ],
         'edit' => 'y_permissions.edit'
     ] )->except( [ 'create', 'show' ] );
 
+    Route::resource( '/menus', 'moltox\yabe\Http\Controllers\MenuController' )->names( [
+        'index' => 'y_menus.index',
+        'store' => 'y_menus.store',
+        'update' => 'y_menus.update',
+        'destroy' => 'y_menus.destroy',
+        'edit' => 'y_menus.edit'
+    ] )->except(  [ 'create', 'show' ]  );
+
 } );

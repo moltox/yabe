@@ -10,6 +10,7 @@ return [
     'create_permission' => 'create permission',
     'create_role' => 'create role',
     'direct_permissions' => 'direct permissions',
+    'edit_menu' => 'edit menu',
     'edit_permission' => 'edit permission',
     'edit_role' => 'edit role',
     'has_permissions' => 'has permissions',

@@ -75,3 +75,22 @@ Breadcrumbs::for( 'y_roles.edit', function ( $trail, $role ) {
 
 } );
 
+
+
+Breadcrumbs::for( 'y_menus.index', function ( $trail ) {
+
+    $trail->parent( 'yabe' );
+    $trail->push( Str::title( Str::plural( __( 'yabe::words.menu' ) ) ), route( 'y_menus.index' ) );
+
+} );
+
+
+Breadcrumbs::for( 'y_menus.edit', function ( $trail, $menu ) {
+
+    $menu = \moltox\yabe\Menu::findOrFail( $menu->id );
+
+    $trail->parent( 'y_menus.index' );
+
+    $trail->push( $menu->name, route( 'y_users.edit', [ 'menu' => $menu ] ) );
+
+} );
