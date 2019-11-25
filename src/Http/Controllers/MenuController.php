@@ -34,7 +34,7 @@ class MenuController extends AbstractController {
 
         $context = $request->has( 'context' ) ? $request[ 'context' ] : '';
 
-        $menus = $this->menusRepository->all( $context )->get();
+        $menus = $this->menusRepository->indexTable( $context )->get();
 
         $parents = $this->menusRepository->getAllParents();
 
@@ -51,7 +51,23 @@ class MenuController extends AbstractController {
      * @return \Illuminate\Http\Response
      */
     public function store( Request $request ) {
-        dd($request->all());
+
+        $this->checkBoxMerge( $request, 'active' );
+
+        $this->checkBoxMerge( $request, 'parent' );
+
+        $validated = $this->validate( $request, [
+
+            'name' => 'max:15',
+            'title' => 'max:255',
+            'context' => 'required',
+
+        ] );
+
+
+        $menu = $this->menusRepository->create( $request );
+
+        return redirect( route( 'y_menus.edit', [ 'menu' => $menu ] ) );
     }
 
 
@@ -68,7 +84,7 @@ class MenuController extends AbstractController {
 
         $context = $request->has( 'context' ) ? $request[ 'context' ] : '';
 
-        $menus = $this->menusRepository->all( $context )->get();
+        $menus = $this->menusRepository->indexTable( $context )->get();
 
         $parents = $this->menusRepository->getAllParents();
 

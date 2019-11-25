@@ -4,6 +4,7 @@
 namespace moltox\yabe\Repositories;
 
 
+use Illuminate\Http\Request;
 use moltox\yabe\Menu;
 use Illuminate\Support\Facades\Log;
 
@@ -13,6 +14,16 @@ class MenusRepository extends AbstractRepository {
     public function __construct( Menu $menu ) {
 
         parent::__construct( $menu );
+
+    }
+
+    public function create( Request $request ) {
+
+        $menu = $this->model->create( $request->toArray() );
+
+        $menu->save();
+
+        return $menu;
 
     }
 
@@ -28,6 +39,12 @@ class MenusRepository extends AbstractRepository {
             ->orderBy( 'sequence', 'asc' );
 
         return $query;
+
+    }
+
+    public function indexTable( $context = '' ) {
+
+        return $this->all( $context, false )->where( 'parent_id', 1 );
 
     }
 
@@ -53,8 +70,14 @@ class MenusRepository extends AbstractRepository {
     public function getAllParents() {
 
         $query = $this->model->select( '*' )
-            ->where( 'active', true )
-            ->where( 'parent', true );
+            ->where( function ( $query )  {
+
+                $query->where( 'active', true )
+                      ->where( 'parent', true );
+
+            })
+            ->orWhere('id', 1)  // also get root, although it's not active
+            ->orderBy('sequence', 'asc');
 
         return $query->get();
     }
@@ -63,11 +86,9 @@ class MenusRepository extends AbstractRepository {
 
         $nextMenu = $this->getNextPossibleMenu( $menu, true );
 
-        if ($nextMenu == null) return null;
+        if ( $nextMenu == null ) return null;
 
-        $this->moveMenuDown( $nextMenu, $menu );
-
-        $this->refreshOrder( $menu->context );
+        $this->swapMenus( $nextMenu, $menu );
 
     }
 
@@ -76,51 +97,29 @@ class MenusRepository extends AbstractRepository {
 
         $nextMenu = $this->getNextPossibleMenu( $menu, false );
 
-        if ($nextMenu == null) return null;
+        if ( $nextMenu == null ) return null;
 
-        $this->moveMenuDown( $menu, $nextMenu );
-
-        $this->refreshOrder( $menu->context );
+        $this->swapMenus( $menu, $nextMenu );
 
     }
 
-    private function moveMenuDown( Menu $srcMenu, Menu $targetMenu ) {
+    private function swapMenus( $menu1, $menu2 )  {
 
-        $oldSequences['src'] = $srcMenu->sequence;
-        $oldSequences['target'] = $targetMenu;
+        Log::info('Swapping ' . $menu1->name . ' with sequence ' . $menu1->sequence . ' with ' .
+                                         $menu2->name . ' with sequence ' . $menu2->sequence );
 
-        // move belonging
-        $this->moveMenusToNewSlot( $targetMenu, $oldSequences['src'] );
+        $tempSequence = $menu1->sequence;
 
-        // move notbelonging
-        $this->moveMenusToNewSlot( $srcMenu, $oldSequences['src'] + $targetMenu->childs->count() + 1 );
+        $menu1->sequence = $menu2->sequence;
 
-        return;
+        $menu2->sequence = $tempSequence;
 
-    }
+        $menu1->save();
 
-
-    private function moveMenusToNewSlot( Menu $menu, $newSequence ) {
-
-        $tempSequence = $newSequence;
-
-        $menu->sequence = $newSequence;
-
-        $menu->save();
-
-        foreach ( $menu->childs as $child ) {
-
-            $tempSequence++;
-
-            Log::info( 'Moving child ' . $child->name . ' from sequence ' . $child->sequence . ' to ' . $tempSequence );
-
-            $child->sequence = $tempSequence;
-
-            $child->save();
-
-        }
+        $menu2->save();
 
     }
+
 
     /**
      * @param Menu $menu
@@ -132,95 +131,25 @@ class MenusRepository extends AbstractRepository {
      * in this function are all security checks (bounds etc )
      *
      */
-
     private function getNextPossibleMenu( Menu $menu, $moveUp = true ) {
 
-        if ($moveUp)  {
+        $query = $this->model->where( 'parent_id', $menu->parent_id );
 
-            $nextSequence = $menu->sequence - 1;
+        if ( $moveUp ) {
 
-            if ($nextSequence < 1) return null;
+            $query = $query->where( 'sequence', '<', $menu->sequence );
 
-        }  else  {  // moving down
+            $menus = $query->get()->last();
 
-            if ($menu->childs->count() > 0) {
+        } else {
 
-                $nextSequence = $menu->childs->last()->sequence + 1;
+            $query = $query->where( 'sequence', '>', $menu->sequence );
 
-            } elseif( $menu->sequence >= $menu->parentMenu->childs->last()->sequence )  {  // check if already last in menu
-
-                return null;
-
-            } else  {
-
-                $nextSequence = $menu->sequence + 1;
-
-            }
-
-            if ($nextSequence > $this->all( $menu->context, 'false')->count() ) return null;
-
+            $menus = $query->get()->first();
         }
 
-        $nextPossibleMenu = $this->getMenuBySequence( $nextSequence, $menu->context );
-
-        return $nextPossibleMenu;
+        return $menus;
 
     }
-
-
-    /**
-     * @param $sequence
-     * @param $context
-     *
-     * @return Menu $menu
-     *
-     * Finds and returns a whole menu by sequence number
-     *
-     * if the sequence number points to a parent, this will be returned
-     * if the sequence number points to a child, the parent will be returned
-     * if the sequence number points to a menu which is no parent, but on
-     *    root level ( parent_id = 1 ), this menu will be returned
-     *
-     */
-    private function getMenuBySequence( $sequence, $context ) {
-
-        $menu = $this->model->where('sequence', $sequence)
-            ->where('context', $context)
-            ->first();
-
-        if ( $menu->parent || $menu->parent_id == 1 )  {
-
-            return $menu;
-
-        }
-
-        return $menu->parentMenu;
-
-    }
-
-
-
-    private function refreshOrder( $context )  {
-
-        $menus = $this->all( $context )
-                ->orderBy('sequence', 'asc')
-                ->orderBy('parent', 'desc')
-                ->get();
-
-        $seq = 1;
-
-        foreach ($menus as $menu)  {
-
-            $menu->sequence = $seq;
-
-            $menu->save();
-
-            $seq++;
-
-        }
-
-    }
-
-
 
 }

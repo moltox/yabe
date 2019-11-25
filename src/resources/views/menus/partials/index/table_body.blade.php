@@ -42,4 +42,10 @@
 
     </tr>
 
+    @if($menu->parent)
+
+        @include('yabe::menus.partials.index.table_body', ['menus' => $menu->childs ])
+
+    @endif
+
 @endforeach
