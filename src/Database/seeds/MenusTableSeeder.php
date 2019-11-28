@@ -1,5 +1,7 @@
 <?php
 
+namespace moltox\yabe\Database\seeds;
+
 use Illuminate\Database\Seeder;
 use moltox\yabe\Menu;
 

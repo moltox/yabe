@@ -31,8 +31,6 @@ class YabeServiceProvider extends ServiceProvider {
 
         $this->publishes([ __DIR__ . '/resources/views' => resource_path('views/moltox/yabe')], 'yabe-views');
 
-        $this->publishes([ __DIR__ . '/Database/seeds' => app_path('../database/seeds')], 'yabe-seeds');
-
         $this->publishes([ __DIR__ . '/config/yabe.php' => config_path('yabe.php') ], 'yabe-config');
 
         $this->publishes([ __DIR__ . '/config/breadcrumbs.php' => config_path('breadcrumbs.php') ], 'breadcrumbs-config');
