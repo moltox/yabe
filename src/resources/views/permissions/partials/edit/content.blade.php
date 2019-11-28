@@ -12,7 +12,11 @@
                 {{ Str::title( __('yabe::phrase.edit_permission')) }}
             </p>
 
-            @include('yabe::components.delete_button', ['url' => route('y_permissions.destroy', ['permission' => $permission])])
+            @can('grant permission delete')
+
+                @include('yabe::components.delete_button', ['url' => route('y_permissions.destroy', ['permission' => $permission])])
+
+            @endcan
 
         </header>
 
@@ -36,7 +40,7 @@
 
                         </div>
 
-                        <label class="label"><small>{{ __('yabe::words.Name') }}</small></label>
+                        <label class="label is-capitalized"><small>{{ __('yabe::words.name') }}</small></label>
 
                         @if( $errors->has('name'))
 
@@ -109,7 +113,7 @@
                     <span class="icon">
                         <i class="fas fa-save"></i>
                     </span>
-                    <span>{{ __('yabe::words.Save' ) }}</span></button>
+                    <span class="is-capitalized">{{ __('yabe::words.save' ) }}</span></button>
 
             </div>
 

@@ -42,7 +42,7 @@ Breadcrumbs::for( 'y_users.edit', function ( $trail, $user ) {
 Breadcrumbs::for( 'y_permissions.index', function ( $trail ) {
 
     $trail->parent( 'yabe' );
-    $trail->push( Str::plural( __( 'yabe::words.Permission' ) ), route( 'y_permissions.index' ) );
+    $trail->push( Str::title( Str::plural( __( 'yabe::words.permission' ) ) ), route( 'y_permissions.index' ) );
 
 } );
 
@@ -72,5 +72,25 @@ Breadcrumbs::for( 'y_roles.edit', function ( $trail, $role ) {
     $trail->parent( 'y_roles.index' );
 
     $trail->push( $role->name, route( 'y_users.edit', [ 'role' => $role ] ) );
+
+} );
+
+
+
+Breadcrumbs::for( 'y_menus.index', function ( $trail ) {
+
+    $trail->parent( 'yabe' );
+    $trail->push( Str::title( Str::plural( __( 'yabe::words.menu' ) ) ), route( 'y_menus.index' ) );
+
+} );
+
+
+Breadcrumbs::for( 'y_menus.edit', function ( $trail, $menu ) {
+
+    $menu = \moltox\yabe\Menu::findOrFail( $menu->id );
+
+    $trail->parent( 'y_menus.index' );
+
+    $trail->push( $menu->name, route( 'y_users.edit', [ 'menu' => $menu ] ) );
 
 } );

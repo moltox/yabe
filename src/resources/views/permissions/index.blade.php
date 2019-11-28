@@ -6,31 +6,48 @@
 
         <div class="column is-two-fifth">
 
-            @include('yabe::permissions.partials.index.table')
+            @can('grant permission list')
+
+                @include('yabe::permissions.partials.index.table')
+
+            @endcan
 
         </div>
 
         <div class="column is-one-fifth">
 
+
             @if(isset($permission))
 
-                @include('yabe::permissions.partials.edit.content')
+                @can('grant permission edit')
+
+                    @include('yabe::permissions.partials.edit.content')
+
+                @endcan
 
             @else
+                @can('grant permission create')
 
-                @include('yabe::permissions.partials.create.content')
+                    @include('yabe::permissions.partials.create.content')
+
+                @endcan
 
             @endif
+
 
         </div>
 
         <div class="column">
 
-            @if(isset($permission))
+            @canany(['grant permission add to role', 'grant permission remove from role'])
 
-                @include('yabe::permissions.partials.edit.roles')
+                @if(isset($permission))
 
-            @endif
+                    @include('yabe::permissions.partials.edit.roles')
+
+                @endif
+
+            @endcan
 
         </div>
 

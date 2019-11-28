@@ -29,6 +29,13 @@ class PermissionController extends Controller {
 
     public function __construct( UsersRepository $usersRepository ) {
 
+        $this->middleware( 'permission:grant permission list', [ 'only' => [ 'index' ] ] ); //List Permission
+        $this->middleware( 'permission:grant permission create', [ 'only' => [ 'create', 'store' ] ] ); //Create Permission
+        $this->middleware( 'permission:grant permission edit', [ 'only' => [ 'edit', 'update' ] ] ); //Update Permission
+        $this->middleware( 'permission:grant permission delete', [ 'only' => [ 'destroy' ] ] ); //Delete Permission
+        $this->middleware( 'permission:grant permission add to role', [ 'only' => [ 'addToRole' ] ] );
+        $this->middleware( 'permission:grant permission remove from role', [ 'only' => [ 'removeFromRole' ] ] );
+
         $this->usersRepository = $usersRepository;
 
         $class = config( 'yabe.user_model_path' );

@@ -1,3 +1,5 @@
+
+
 <nav class="navbar mNavbar is-primary" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
 
@@ -11,32 +13,11 @@
     </div>
 
     <div id="navbarBasicExample" class="navbar-menu">
+
         <div class="navbar-start">
-            <a class="navbar-item is-capitalized" href="{{ route('yabe') }}">
-                {{ __('yabe::words.home') }}
-            </a>
 
-            <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link is-capitalized">
-                    {{ __('yabe::words.user') }}
-                </a>
+            @include('yabe::navbar_top.partials.navbar_start')
 
-                <div class="navbar-dropdown">
-
-                    <a class="navbar-item is-capitalized" href="{{ route('y_users.index') }}">
-                        {{ Str::plural( __('yabe::words.user') ) }}
-                    </a>
-
-                    <a class="navbar-item is-capitalized" href="{{ route('y_roles.index') }}">
-                        {{ Str::plural( __('yabe::words.role') ) }}
-                    </a>
-
-                    <a class="navbar-item is-capitalized" href="{{ route('y_permissions.index') }}">
-                        {{ Str::plural( __('yabe::words.permission') ) }}
-                    </a>
-
-                </div>
-            </div>
         </div>
 
         <div class="navbar-end">

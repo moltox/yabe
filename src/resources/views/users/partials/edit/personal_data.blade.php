@@ -8,6 +8,10 @@
 
         <form id="personaldata" name="personaldata" action="{{ route('y_users.update', ['user' => $user]) }}" method="POST">
 
+            @csrf
+
+            @method('patch')
+
             <div class="columns">
 
                 <div class="column">

@@ -6,7 +6,11 @@
 
         <div class="column is-one-third">
 
-            @include('yabe::roles.partials.index.card')
+            @can('grant role list')
+
+                @include('yabe::roles.partials.index.card')
+
+            @endcan
 
         </div>
 
@@ -18,11 +22,18 @@
 
                     @if(isset($role))
 
-                        @include('yabe::roles.partials.edit.content')
+                        @can('grant role edit')
 
+                            @include('yabe::roles.partials.edit.content')
+
+                        @endcan
                     @else
 
-                        @include('yabe::roles.partials.create.content')
+                        @can('grant role create')
+
+                            @include('yabe::roles.partials.create.content')
+
+                        @endcan
 
                     @endif
 
@@ -30,13 +41,21 @@
 
                 <div class="column">
 
-                    @includeWhen(isset($role), 'yabe::roles.partials.edit.permissions')
+                    @canany(['grant role give permission', 'grant role remove permission'])
+
+                        @includeWhen(isset($role), 'yabe::roles.partials.edit.permissions')
+
+                    @endcanany
 
                 </div>
 
                 <div class="column">
 
-                    @includeWhen(isset($role), 'yabe::roles.partials.edit.users')
+                    @can('grant user remove role')
+
+                        @includeWhen(isset($role), 'yabe::roles.partials.edit.users')
+
+                    @endcan
 
                 </div>
 
