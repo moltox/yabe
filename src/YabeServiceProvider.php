@@ -16,7 +16,7 @@ class YabeServiceProvider extends ServiceProvider {
     public function register() {
 
         $this->app->make('moltox\yabe\Http\Controllers\YabeController');
-        $this->loadViewsFrom( __DIR__ . '/resources/views', 'yabe');
+
 
     }
 
@@ -27,13 +27,19 @@ class YabeServiceProvider extends ServiceProvider {
      */
     public function boot() {
 
+        $this->loadViewsFrom( __DIR__ . '/resources/views', 'yabe');
+
+        $this->publishes([ __DIR__ . '/resources/views' => resource_path('views/moltox/yabe')], 'yabe-views');
+
+        $this->publishes([ __DIR__ . '/Database/seeds' => app_path('../database/seeds')], 'yabe-seeds');
+
         $this->publishes([ __DIR__ . '/config/yabe.php' => config_path('yabe.php') ], 'yabe-config');
 
         $this->publishes([ __DIR__ . '/config/breadcrumbs.php' => config_path('breadcrumbs.php') ], 'breadcrumbs-config');
 
         $this->publishes([ __DIR__ . '/config/custom_fields.php' => config_path('custom_fields.php') ], 'customfields-config');
 
-        $this->publishes([ __DIR__ . '/resources/lang' => resource_path('lang'), ], 'example-lang' );
+        $this->publishes([ __DIR__ . '/resources/lang' => resource_path('lang'), ], 'yabe-lang' );
 
         $this->publishes([ __DIR__ . '/public' => public_path('moltox/yabe') ], 'public-files' );
 
