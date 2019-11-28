@@ -13,6 +13,8 @@ return [
 
     ],
 
+
+
     'User' => [
 
         'second_email' => [
@@ -26,7 +28,7 @@ return [
             'showInEditForm' => true,
             'showInShowView' => true,
             'icon' => 'fas fa-envelope',
-            'validation_rules' => 'sometimes|email',
+            'validation_rules' => 'nullable|email',
 
         ],
 
@@ -41,7 +43,8 @@ return [
             'showInEditForm' => true,
             'showInShowView' => true,
             'icon' => 'fas fa-road',
-            'validation_rules' => 'sometimes|min:3|max:255',
+            'validation_rules' => 'nullable|min:3|max:255',
+            'hideLabelInShowView' => true,
 
         ],
 
@@ -56,7 +59,8 @@ return [
             'showInEditForm' => true,
             'showInShowView' => true,
             'icon' => 'fas fa-city',
-            'validation_rules' => 'sometimes|min:3|max:255',
+            'validation_rules' => 'nullable|min:3|max:255',
+            'hideLabelInShowView' => true,
 
         ],
 
@@ -71,7 +75,7 @@ return [
             'showInEditForm' => false,
             'showInShowView' => true,
             'icon' => '',
-            'validation_rules' => 'sometimes|boolean',
+            'validation_rules' => 'boolean',
 
         ],
 
@@ -354,7 +358,8 @@ return [
                 "AX" => "Åland Islands",
 
             ],
-            'validation_rules' => 'sometimes|min:2|max:2',
+            'validation_rules' => 'min:2|max:2',
+            'hideLabelInShowView' => true,
 
         ],
 
