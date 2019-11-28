@@ -91,6 +91,6 @@ Breadcrumbs::for( 'y_menus.edit', function ( $trail, $menu ) {
 
     $trail->parent( 'y_menus.index' );
 
-    $trail->push( $menu->name, route( 'y_users.edit', [ 'menu' => $menu ] ) );
+    $trail->push( $menu->name, route( 'y_menus.edit', [ 'menu' => $menu ] ) );
 
 } );
