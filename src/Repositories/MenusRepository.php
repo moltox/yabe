@@ -19,6 +19,10 @@ class MenusRepository extends AbstractRepository {
 
     public function create( Request $request ) {
 
+        $sequence = $this->model->where( 'parent_id', $request[ 'parent_id' ] )->max( 'sequence' ) + 1;
+
+        $request->merge( [ 'sequence' => $sequence ] );
+
         $menu = $this->model->create( $request->toArray() );
 
         $menu->save();
@@ -53,6 +57,7 @@ class MenusRepository extends AbstractRepository {
         $menus = $this->model->select( '*' )
             ->where( 'active', true )
             ->where( 'context', $context )
+            ->where( 'parent_id', 1 )
             ->orderBy( 'sequence', 'asc' );
 
         return $menus->get();
@@ -70,14 +75,14 @@ class MenusRepository extends AbstractRepository {
     public function getAllParents() {
 
         $query = $this->model->select( '*' )
-            ->where( function ( $query )  {
+            ->where( function ( $query ) {
 
                 $query->where( 'active', true )
-                      ->where( 'parent', true );
+                    ->where( 'parent', true );
 
-            })
-            ->orWhere('id', 1)  // also get root, although it's not active
-            ->orderBy('sequence', 'asc');
+            } )
+            ->orWhere( 'id', 1 )  // also get root, although it's not active
+            ->orderBy( 'sequence', 'asc' );
 
         return $query->get();
     }
@@ -103,10 +108,10 @@ class MenusRepository extends AbstractRepository {
 
     }
 
-    private function swapMenus( $menu1, $menu2 )  {
+    private function swapMenus( $menu1, $menu2 ) {
 
-        Log::info('Swapping ' . $menu1->name . ' with sequence ' . $menu1->sequence . ' with ' .
-                                         $menu2->name . ' with sequence ' . $menu2->sequence );
+        Log::info( 'Swapping ' . $menu1->name . ' with sequence ' . $menu1->sequence . ' with ' .
+            $menu2->name . ' with sequence ' . $menu2->sequence );
 
         $tempSequence = $menu1->sequence;
 
@@ -133,7 +138,8 @@ class MenusRepository extends AbstractRepository {
      */
     private function getNextPossibleMenu( Menu $menu, $moveUp = true ) {
 
-        $query = $this->model->where( 'parent_id', $menu->parent_id );
+        $query = $this->model->where( 'parent_id', $menu->parent_id )
+            ->orderBy( 'sequence', 'asc' );
 
         if ( $moveUp ) {
 

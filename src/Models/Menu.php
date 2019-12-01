@@ -25,7 +25,9 @@ class Menu extends Model
 
     public function getChildsAttribute()  {
 
-        $childs = $this->newQuery()->where('parent_id', $this->id );
+        $childs = $this->newQuery()
+            ->where('parent_id', $this->id )
+            ->orderBy('sequence', 'asc');
 
         return $childs->get();
 

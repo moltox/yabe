@@ -29,7 +29,7 @@ class YabeServiceProvider extends ServiceProvider {
 
         $this->loadViewsFrom( __DIR__ . '/resources/views', 'yabe');
 
-        $this->publishes([ __DIR__ . '/resources/views' => resource_path('views/moltox/yabe')], 'yabe-views');
+        $this->publishes([ __DIR__ . '/resources/views' => resource_path('views/vendor/yabe')], 'yabe-views');
 
         $this->publishes([ __DIR__ . '/config/yabe.php' => config_path('yabe.php') ], 'yabe-config');
 
@@ -55,9 +55,6 @@ class YabeServiceProvider extends ServiceProvider {
             'yabe::navbar_top.navbar', 'moltox\yabe\Http\View\Composers\MenuComposer'
 
         );
-
-
-
 
     }
 
