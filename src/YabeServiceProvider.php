@@ -56,9 +56,6 @@ class YabeServiceProvider extends ServiceProvider {
 
         );
 
-
-
-
     }
 
 }
