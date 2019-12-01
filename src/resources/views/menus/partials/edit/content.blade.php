@@ -75,7 +75,7 @@
 
                         </div>
 
-                        <label for="context" class="label is-small">Context</label>
+                        <label for="context" class="label is-small is-capitalized">{{ __('yabe::words.parent') }}</label>
 
                     </div>
 
