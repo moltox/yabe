@@ -36,9 +36,7 @@ class MenuController extends AbstractController {
 
         $menus = $this->menusRepository->indexTable( $context )->get();
 
-        $parents = $this->menusRepository->getAllParents();
-
-        return view( 'yabe::menus.index', compact( 'menus', 'contexts', 'context', 'parents' ) );
+        return view( 'yabe::menus.index', compact( 'menus', 'contexts', 'context' ) );
 
     }
 
@@ -85,7 +83,7 @@ class MenuController extends AbstractController {
         $context = $request->has( 'context' ) ? $request[ 'context' ] : '';
 
         $menus = $this->menusRepository->indexTable( $context )->get();
-
+//dd($menus);
         $parents = $this->menusRepository->getAllParents();
 
         return view( 'yabe::menus.index', compact( 'menus', 'contexts', 'context', 'menu', 'parents' ) );

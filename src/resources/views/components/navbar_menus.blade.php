@@ -6,7 +6,7 @@
 
 @foreach($menus as $key => $menu)
 
-    @if($menu->parent_id == $parentId)
+
 
         @if($menu->parent)
 
@@ -20,7 +20,7 @@
 
                 <div class="navbar-dropdown">
 
-                    @include('yabe::components.navbar_menus', ['parentId' => $menu->id])
+                    @include('yabe::components.navbar_menus', ['menus' => $menu->childs])
 
                 </div>
 
@@ -32,6 +32,6 @@
 
         @endif
 
-    @endif
+
 
 @endforeach
