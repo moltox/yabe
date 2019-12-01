@@ -53,7 +53,7 @@ Breadcrumbs::for( 'y_permissions.edit', function ( $trail, $permission ) {
 
     $trail->parent( 'y_permissions.index' );
 
-    $trail->push( $permission->name, route( 'y_users.edit', [ 'permission' => $permission ] ) );
+    $trail->push( $permission->name, route( 'y_permissions.edit', [ 'permission' => $permission ] ) );
 
 } );
 
@@ -71,7 +71,7 @@ Breadcrumbs::for( 'y_roles.edit', function ( $trail, $role ) {
 
     $trail->parent( 'y_roles.index' );
 
-    $trail->push( $role->name, route( 'y_users.edit', [ 'role' => $role ] ) );
+    $trail->push( $role->name, route( 'y_roles.edit', [ 'role' => $role ] ) );
 
 } );
 
@@ -91,6 +91,6 @@ Breadcrumbs::for( 'y_menus.edit', function ( $trail, $menu ) {
 
     $trail->parent( 'y_menus.index' );
 
-    $trail->push( $menu->name, route( 'y_users.edit', [ 'menu' => $menu ] ) );
+    $trail->push( $menu->name, route( 'y_menus.edit', [ 'menu' => $menu ] ) );
 
 } );
