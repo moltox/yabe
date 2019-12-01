@@ -19,6 +19,10 @@ class MenusRepository extends AbstractRepository {
 
     public function create( Request $request ) {
 
+        $sequence = $this->model->where('parent_id', $request['parent_id'])->max('sequence') + 1;
+
+        $request->merge(['sequence' => $sequence]);
+
         $menu = $this->model->create( $request->toArray() );
 
         $menu->save();
@@ -133,7 +137,8 @@ class MenusRepository extends AbstractRepository {
      */
     private function getNextPossibleMenu( Menu $menu, $moveUp = true ) {
 
-        $query = $this->model->where( 'parent_id', $menu->parent_id );
+        $query = $this->model->where( 'parent_id', $menu->parent_id )
+            ->orderBy('sequence', 'asc');
 
         if ( $moveUp ) {
 
