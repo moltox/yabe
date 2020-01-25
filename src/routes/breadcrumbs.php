@@ -94,3 +94,4 @@ Breadcrumbs::for( 'y_menus.edit', function ( $trail, $menu ) {
     $trail->push( $menu->name, route( 'y_menus.edit', [ 'menu' => $menu ] ) );
 
 } );
+
