@@ -1,44 +1,24 @@
 .mNavbar {
-
-    padding-bottom: 20px;
-
-    margin-bottom: 0px;
-
+  padding-bottom: 20px;
+  margin-bottom: 0px;
 }
 
-.breadcrumb  {
-
-    padding: 5px;
-
+.breadcrumb {
+  padding: 5px;
 }
 
 .columns {
-
-    width: 100%;
-
+  width: 100%;
 }
 
-.mBreadcrumb  {
-
-
-
-}
-
-.mBox  {
-
-    width: 100%;
-
-    border: 1px gray;
-
-    padding: 5px;
-
-    margin: 5px;
-
+.mBox {
+  width: 100%;
+  border: 1px gray;
+  padding: 5px;
+  margin: 5px;
 }
 
 .mBox a {
-
-    color: white;
-
+  color: white;
 }
 
