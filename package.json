@@ -1,7 +1,7 @@
 {
     "name": "yabe",
-    "version": "3.2.2",
-    "description": "Yabe 0.2",
+    "version": "3.3.4",
+    "description": "Yabe 3.3.4",
     "main": "index.js",
     "dependencies": {
         "bulma": "^0.8.0",
