@@ -25,6 +25,10 @@
 
                 </div>
 
+            </div>
+
+            <div class="columns">
+
                 <div class="column">
 
                     @include('yabe::components.switch', [
