@@ -17,7 +17,6 @@ class YabeServiceProvider extends ServiceProvider {
 
         $this->app->make('moltox\yabe\Http\Controllers\YabeController');
 
-
     }
 
     /**
