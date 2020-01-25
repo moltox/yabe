@@ -12,6 +12,4 @@ const mix = require('laravel-mix');
  */
 
 //mix.js('src/resources/assets/js/app.js', 'public/js')
-mix.sass('src/resources/assets/sass/app.scss', 'src/public/css');
-
 mix.sass('src/resources/assets/sass/yabe.scss', 'src/public/css');
