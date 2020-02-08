@@ -16,5 +16,6 @@ $this->call( moltox\yabe\Database\seeds\MenusTableSeeder::class );
         
         
         Add
+        use Yabe;
            use HasRoles;
            to User Model
